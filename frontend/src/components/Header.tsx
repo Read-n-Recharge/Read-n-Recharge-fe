@@ -1,10 +1,11 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 
 export function Header() {
   return (
     <div>
       <nav>
-        <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto pt-4 ">
+        <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto pt-3">
           <a href="#">
             <span className="text-2xl font-semibold whitespace-nowrap text-white">
               Read 'n' Recharge
@@ -13,7 +14,7 @@ export function Header() {
           <button
             data-collapse-toggle="navbar-solid-bg"
             type="button"
-            className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+            className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 "
             aria-controls="navbar-solid-bg"
             aria-expanded="false"
           >
@@ -40,30 +41,52 @@ export function Header() {
           >
             <ul className="flex flex-col font-medium mt-4 rounded-lg md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-transparent dark:bg-gray-800 md:dark:bg-transparent dark:border-gray-700">
               <li>
-                <a
-                  href="#"
-                  className="block py-2 px-3 md:px-6 rounded-3xl text-white bg-white bg-opacity-20 border"
-                  aria-current="page"
+                <NavLink
+                  to="/about"
+                  className={({ isActive }) =>
+                    `block py-2 px-2 md:px-6 rounded-3xl text-white hover:shadow-glow hover:bg-glow${
+                      isActive ? "shadow-glow bg-glow" : ""
+                    }`
+                  }
                 >
                   About
-                </a>
+                </NavLink>
               </li>
               <li>
-                <a
-                  href="#"
-                  className="block py-2 px-3 md:px-5 rounded-3xl text-white bg-white bg-opacity-20 border"
+                <NavLink
+                  to="/service"
+                  className={({ isActive }) =>
+                    `block py-2 px-2 md:px-6 rounded-3xl text-white hover:shadow-glow hover:bg-glow ${
+                      isActive ? "shadow-glow bg-glow" : ""
+                    }`
+                  }
                 >
-                  Services
-                </a>
+                  Service
+                </NavLink>
               </li>
-
               <li>
-                <a
-                  href="#"
-                  className="block py-2 px-3 md:px-5 bg-sky-200 p-5 rounded-3xl border"
+                <NavLink
+                  to="/"
+                  className={({ isActive }) =>
+                    `block py-2 px-2 md:px-6 rounded-3xl text-white border-sky-100 border-solid border hover:bg-glow hover:shadow-glow-blue ${
+                      isActive ? "bg-glow-blue" : ""
+                    }`
+                  }
+                >
+                  Log in
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/register"
+                  className={({ isActive }) =>
+                    `block py-2 px-2 md:px-6 rounded-3xl text-white border-sky-100 border-solid border hover:bg-glow-blue hover:shadow-glow-blue ${
+                      isActive ? "bg-glow-blue" : ""
+                    }`
+                  }
                 >
                   Register
-                </a>
+                </NavLink>
               </li>
             </ul>
           </div>

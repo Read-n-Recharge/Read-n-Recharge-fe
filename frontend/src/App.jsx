@@ -1,12 +1,21 @@
 import "./App.css";
-import { LoginPage } from "./pages/Login";
-
+import { DashboardPage } from "./pages/dashboard";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { AboutPage } from "./pages/about";
+import { ServicePage } from "./pages/servicePage";
+import { AuthPage } from "./pages/AuthPage";
 function App() {
   return (
     <>
-      <div className="">
-        <LoginPage />
-      </div>
+      <Router>
+        <Routes>
+          <Route path="/" element={<AuthPage isLogin={true} />} />
+          <Route path="/register" element={<AuthPage isLogin={false} />} />
+          <Route path="/dashboard" element={<DashboardPage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/service" element={<ServicePage />} />
+        </Routes>
+      </Router>
     </>
   );
 }
