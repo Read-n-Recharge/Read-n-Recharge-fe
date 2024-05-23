@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Header } from "../components/Header";
 import bgImage from "../assets/bg-login.png";
-import { LoginPage } from "../components/Login";
+import LoginPage from "../components/Login";
 import RegisterForm from "../components/Register";
 
 const formVariants = {

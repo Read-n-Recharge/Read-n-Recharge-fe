@@ -2,13 +2,21 @@ import axios from "axios";
 import { api } from "./AxiosClient";
 
 export const login = async (email: string, password: string) => {
-  const response = await api.post("auth/token/", { email, password });
-  localStorage.setItem("access_token", response.data.access);
-  localStorage.setItem("refresh_token", response.data.refresh);
-  api.defaults.headers.common[
-    "Authorization"
-  ] = `Bearer ${response.data.access}`;
-  return response.data;
+  try {
+    const response = await api.post("auth/token/", { email, password });
+    localStorage.setItem("access_token", response.data.access);
+    localStorage.setItem("refresh_token", response.data.refresh);
+    api.defaults.headers.common[
+      "Authorization"
+    ] = `Bearer ${response.data.access}`;
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response) {
+      console.error("Login error response:", error.response.data);
+      throw error.response.data; 
+    }
+    throw error;
+  }
 };
 
 export const register = async (
