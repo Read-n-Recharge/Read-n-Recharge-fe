@@ -14,16 +14,25 @@ export const login = async (email: string, password: string) => {
 export const register = async (
   email: string,
   password: string,
-  firstName: string,
-  lastName: string
+  confirm_password: string,
+  first_name: string,
+  last_name: string
 ) => {
-  const response = await api.post("auth/token/register/", {
-    email,
-    password,
-    first_name: firstName,
-    last_name: lastName,
-  });
-  return response.data;
+  try {
+    const response = await api.post("auth/register/", {
+      email,
+      password,
+      confirm_password: confirm_password,
+      first_name: first_name,
+      last_name: last_name,
+    });
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response) {
+      console.error("Registration error response:", error.response.data);
+    }
+    throw error;
+  }
 };
 
 export const getDashboard = async () => {

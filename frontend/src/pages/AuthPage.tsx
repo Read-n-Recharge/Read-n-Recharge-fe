@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Header } from "../components/Header";
 import bgImage from "../assets/bg-login.png";
 import { LoginPage } from "../components/Login";
-import { RegisterPage } from "../components/Register";
+import RegisterForm from "../components/Register";
 
 const formVariants = {
   hidden: { opacity: 0, x: -100 },
@@ -46,33 +46,10 @@ export function AuthPage({ isLogin: initialIsLogin }) {
                   exit="exit"
                   variants={formVariants}
                 >
-                  <RegisterPage />
+                  <RegisterForm />
                 </motion.div>
               )}
             </AnimatePresence>
-            <div className="text-center mt-4">
-              {isLogin ? (
-                <p className="text-sm font-light text-gray-500">
-                  Don’t have an account yet?{" "}
-                  <button
-                    onClick={() => setIsLogin(false)}
-                    className="font-medium text-blue-400 hover:underline"
-                  >
-                    Register
-                  </button>
-                </p>
-              ) : (
-                <p className="text-sm font-light text-gray-500">
-                  Already have an account?{" "}
-                  <button
-                    onClick={() => setIsLogin(true)}
-                    className="font-medium text-blue-400 hover:underline"
-                  >
-                    Login
-                  </button>
-                </p>
-              )}
-            </div>
           </div>
         </div>
       </section>

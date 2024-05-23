@@ -31,17 +31,17 @@ export function ServicePage() {
           <h1 className="text-white text-center p-12 text-3xl font-semibold">
             Let see our feature and service!
           </h1>
-          <div className="flex flex-col items-center justify-center gap-12 m-auto px-12">
+          <div className="flex flex-col items-center justify-center gap-12 m-auto px-32">
             <motion.div
               initial={{ opacity: 1, y: 0 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <div className="flex flex-row p-2 text-sm gap-4 bg-white bg-opacity-80 w-full h-fit rounded-s-full">
+              <div className="flex flex-row p-2 text-sm gap-4 bg-white bg-opacity-80 w-full h-fit rounded-3xl">
                 <img
                   src={studyingImage}
                   alt="studying image"
-                  className="w-1/6 rounded-full p-1"
+                  className="w-1/6 rounded-3xl p-1"
                 />
                 <div className="flex flex-col p-5">
                   <h1 className="font-bold text-blue-950 text-lg">
@@ -71,11 +71,11 @@ export function ServicePage() {
               </div>
             </motion.div>
             <motion.div {...motionProps}>
-              <div className="flex flex-row p-2 text-sm gap-4 bg-white bg-opacity-80 w-full h-fit rounded-s-full">
+              <div className="flex flex-row p-2 text-sm gap-4 bg-white bg-opacity-80 w-full h-fit rounded-3xl">
                 <img
                   src={moodtracking}
                   alt="mood tracking image"
-                  className="w-1/6 rounded-full p-1"
+                  className="w-1/6 rounded-3xl p-1"
                 />
                 <div className="flex flex-col p-5">
                   <h1 className="font-bold text-blue-950 text-lg">
@@ -103,11 +103,11 @@ export function ServicePage() {
               </div>
             </motion.div>
             <motion.div {...motionProps}>
-              <div className="flex flex-row p-2 text-sm gap-4 bg-white bg-opacity-80 w-full h-fit rounded-s-full">
+              <div className="flex flex-row p-2 text-sm gap-4 bg-white bg-opacity-80 w-full h-fit rounded-3xl">
                 <img
                   src={chargingPhone}
                   alt="charging phone image"
-                  className="w-1/6 rounded-full p-1"
+                  className="w-1/6 rounded-3xl p-1"
                 />
                 <div className="flex flex-col p-5">
                   <h1 className="font-bold text-blue-950 text-lg">
@@ -137,11 +137,11 @@ export function ServicePage() {
               </div>
             </motion.div>
             <motion.div {...motionProps}>
-              <div className="flex flex-row p-2 text-sm gap-4 bg-white bg-opacity-80 w-full h-fit rounded-s-full">
+              <div className="flex flex-row p-2 text-sm gap-4 bg-white bg-opacity-80 w-full h-fit rounded-3xl">
                 <img
                   src={Faq}
                   alt="charging phone image"
-                  className="w-1/6 rounded-full p-1"
+                  className="w-1/6 rounded-3xl p-1"
                 />
                 <div className="flex flex-col p-5">
                   <h1 className="font-bold text-blue-950 text-lg pb-2">FAQ</h1>
