@@ -13,7 +13,7 @@ export const login = async (email: string, password: string) => {
   } catch (error) {
     if (axios.isAxiosError(error) && error.response) {
       console.error("Login error response:", error.response.data);
-      throw error.response.data; 
+      throw error.response.data;
     }
     throw error;
   }
@@ -46,4 +46,23 @@ export const register = async (
 export const getDashboard = async () => {
   const response = await api.get("/dashboard/");
   return response.data;
+};
+
+export const submitStudyPreference = async (userId: number, preferenceData: {
+  chronotype: string;
+  concentration: string;
+  studying_style: string;
+  procrastination: boolean;
+  physical_activity: string;
+}) => {
+  try {
+    const response = await api.post(`auth/form/${userId}/`, preferenceData);
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response) {
+      console.error('Error submitting study preference:', error.response.data);
+      throw error.response.data;
+    }
+    throw error;
+  }
 };

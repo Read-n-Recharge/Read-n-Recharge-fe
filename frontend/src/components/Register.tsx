@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { register } from "../services/authenticationAPI";
+import StudyForm from "./StudyForm";
 
 const RegisterForm: React.FC = () => {
   const [email, setEmail] = useState("");
@@ -7,6 +8,7 @@ const RegisterForm: React.FC = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [userId, setUserId] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
 
@@ -28,21 +30,37 @@ const RegisterForm: React.FC = () => {
         lastName
       );
       console.log("Registration successful:", response);
-      setSuccess(true);
-    } catch (error) {
-      console.error("Registration failed:", error.response);
-      setError(error.response);
+      if (response.user_id) {
+        setUserId(response.user_id);
+        setSuccess(true);
+      } else {
+        throw new Error("User ID not returned from registration");
+      }
+    } catch (error: any) {
+      console.error("Registration failed:", error.response.data);
+      setError(error.response.data);
     }
   };
+
+  if (success && userId !== null) {
+    return <StudyForm userId={userId} />;
+  }
 
   return (
     <div className="p-4 space-y-2 md:space-y-3 sm:p-4">
       <h1 className="text-xl font-bold text-gray-900 md:text-2xl py-3 text-center">
         Create an account
       </h1>
-      {error && <div className="text-red-600">{error}</div>}
-      {success && (
-        <div className="text-green-600">Registration successful!</div>
+      {error && (
+        <div className="text-red-600">
+          {Object.keys(error).map((key) => (
+            <div key={key}>
+              {error[key].map((message: string, index: number) => (
+                <div key={index}>{message}</div>
+              ))}
+            </div>
+          ))}
+        </div>
       )}
       <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
         <div>
