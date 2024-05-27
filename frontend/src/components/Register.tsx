@@ -1,6 +1,9 @@
 import React, { useState } from "react";
-import { register } from "../services/authenticationAPI";
+import { register } from "../services/api";
 import StudyForm from "./StudyForm";
+import PopupComponent from "./popup";
+import { AnimatePresence } from "framer-motion";
+import { UserData } from "../type";
 
 const RegisterForm: React.FC = () => {
   const [email, setEmail] = useState("");
@@ -20,15 +23,17 @@ const RegisterForm: React.FC = () => {
       setError("Passwords do not match");
       return;
     }
+    const registerData: UserData = {
+      email,
+      password,
+      confirm_password: confirmPassword,
+      first_name: firstName,
+      last_name: lastName,
+    };
 
     try {
-      const response = await register(
-        email,
-        password,
-        confirmPassword,
-        firstName,
-        lastName
-      );
+      const response = await register(registerData);
+      
       console.log("Registration successful:", response);
       if (response.user_id) {
         setUserId(response.user_id);
@@ -45,23 +50,19 @@ const RegisterForm: React.FC = () => {
   if (success && userId !== null) {
     return <StudyForm userId={userId} />;
   }
+  const handleClosePopup = () => {
+    setError(null);
+  };
 
   return (
     <div className="p-4 space-y-2 md:space-y-3 sm:p-4">
       <h1 className="text-xl font-bold text-gray-900 md:text-2xl py-3 text-center">
         Create an account
       </h1>
-      {error && (
-        <div className="text-red-600">
-          {Object.keys(error).map((key) => (
-            <div key={key}>
-              {error[key].map((message: string, index: number) => (
-                <div key={index}>{message}</div>
-              ))}
-            </div>
-          ))}
-        </div>
-      )}
+
+      <AnimatePresence>
+        {error && <PopupComponent error={error} onClose={handleClosePopup} />}
+      </AnimatePresence>
       <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
         <div>
           <label

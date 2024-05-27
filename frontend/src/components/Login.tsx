@@ -1,34 +1,54 @@
 import React, { useState } from "react";
-import { login } from "../services/authenticationAPI";
+import { login, getUserProfile } from "../services/api";
+import { useNavigate } from "react-router-dom";
+import { AuthCredentials } from "../types";
+import { AnimatePresence } from "framer-motion";
+import PopupComponent from "../components/popup";
 
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState<string | null>(null);
-  const [user, setUser] = useState<any>(null);
+  const [error, setError] = useState<any | null>(null); 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (isSubmitting) return;
+
     setError(null);
+    setIsSubmitting(true);
+    const credentials: AuthCredentials = { email, password };
 
     try {
-      const response = await login(email, password);
+      const response = await login(credentials);
       console.log("Login successful:", response);
-      setUser(response);
-    } catch (err) {
-      console.error("Login failed:", err.response);
+
+      const userId = response.user_id;
+      console.log("user id " + userId);
+
+      const userProfile = await getUserProfile(userId);
+      navigate(`/user/${userProfile.id}`);
+    } catch (err: any) {
+      console.error("Login failed:", err);
       setError(
-        "Login failed. Please check your email and password and try again."
+        err.response?.data ||
+          "Login failed. Please check your email and password."
       );
+    } finally {
+      setIsSubmitting(false); 
     }
+  };
+
+  const handleClosePopup = () => {
+    setError(null);
   };
 
   return (
     <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-      <h1 className="text-2xl font-bold  text-gray-900">
+      <h1 className="text-2xl font-bold text-gray-900">
         Sign in to your account
       </h1>
-
       <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
         <div>
           <label
@@ -75,12 +95,17 @@ const LoginPage: React.FC = () => {
         <button
           type="submit"
           className="w-full bg-slate-900 text-white p-3 rounded-2xl"
+          disabled={isSubmitting}
         >
           Sign in
         </button>
       </form>
-      {error && <div className="text-red-600">{error}</div>}
+
+      <AnimatePresence>
+        {error && <PopupComponent error={error} onClose={handleClosePopup} />}
+      </AnimatePresence>
     </div>
   );
 };
+
 export default LoginPage;

@@ -1,10 +1,9 @@
-import "./App.css";
 import { DashboardPage } from "./pages/dashboard";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AboutPage } from "./pages/about";
 import { ServicePage } from "./pages/servicePage";
 import { AuthPage } from "./pages/AuthPage";
-import StudyForm from "./components/StudyForm";
+import UserProfile from "./pages/Profile";
 function App() {
   return (
     <>
@@ -15,7 +14,7 @@ function App() {
           <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/service" element={<ServicePage />} />
-          <Route path="/form" element={<StudyForm />} />
+          <Route path="/user/:id" element={<UserProfile />} />
         </Routes>
       </Router>
     </>

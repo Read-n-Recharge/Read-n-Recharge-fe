@@ -1,0 +1,29 @@
+.gg-danger {
+  box-sizing: border-box;
+  position: relative;
+  display: block;
+  transform: scale(var(--ggs, 2));
+  width: var(--gg-width, 30px);
+  height: var(--gg-height, 30px);
+  border: 2px solid;
+  border-radius: 40px;
+}
+.gg-danger::after,
+.gg-danger::before {
+  content: "";
+  display: block;
+  box-sizing: border-box;
+  position: absolute;
+  border-radius: 5px;
+  width: 3px;
+  background: currentColor;
+  left: 11.5px;
+}
+.gg-danger::after {
+  top: 2px;
+  height: 13px;
+}
+.gg-danger::before {
+  height: 4px;
+  bottom: 4px;
+}

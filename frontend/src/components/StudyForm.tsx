@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { submitStudyPreference } from "../services/authenticationAPI";
+import { submitStudyPreference } from "../services/api";
 
 interface StudyFormProps {
   userId: number;
@@ -124,7 +124,7 @@ const StudyForm: React.FC<StudyFormProps> = ({ userId }) => {
               className="mr-2"
             />
             <label htmlFor="procrastinationYes" className="mr-4">
-              Yes
+              Yes, I’m procrastinate person
             </label>
             <input
               type="radio"
@@ -135,7 +135,7 @@ const StudyForm: React.FC<StudyFormProps> = ({ userId }) => {
               onChange={() => setProcrastination(false)}
               className="mr-2"
             />
-            <label htmlFor="procrastinationNo">No</label>
+            <label htmlFor="procrastinationNo">Not,really!</label>
           </div>
         </div>
 
