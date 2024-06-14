@@ -18,8 +18,7 @@ export function ServicePage() {
   };
 
   return (
-    <>
-      <div
+    <div
         className="min-h-screen bg-cover bg-center pb-12"
         style={{ backgroundImage: `url(${bgImage})` }}
       >
@@ -201,6 +200,5 @@ export function ServicePage() {
           </div>
         </div>
       </div>
-    </>
   );
 }

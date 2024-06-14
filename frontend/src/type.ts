@@ -18,3 +18,12 @@ export interface StudyPreferenceData {
   procrastination: boolean;
   physical_activity: string;
 }
+
+export type Todo = {
+  id: number;
+  task: string;
+  details: string;
+  isCompleted: boolean;
+};
+
+
