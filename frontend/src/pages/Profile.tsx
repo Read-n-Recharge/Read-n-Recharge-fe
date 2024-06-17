@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import { getUserProfile } from "../services/api";
 import { UserData } from "../type";
 
 const UserProfile: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
   const [user, setUser] = useState<UserData | undefined>(undefined);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -12,7 +10,7 @@ const UserProfile: React.FC = () => {
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-        const userProfile = await getUserProfile(Number(id));
+        const userProfile = await getUserProfile();
         setUser(userProfile);
         setLoading(false);
       } catch (err) {

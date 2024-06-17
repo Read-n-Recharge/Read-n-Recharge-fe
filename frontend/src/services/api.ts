@@ -1,12 +1,21 @@
 import axios from "axios";
 import { api } from "./AxiosClient";
-import { AuthCredentials, StudyPreferenceData, UserData } from "../type";
+import {
+  AuthCredentials,
+  StudyPreferenceData,
+  UserData,
+  DecodedTokenData,
+} from "../type";
+import { jwtDecode } from "jwt-decode";
 
 export const login = async ({ email, password }: AuthCredentials) => {
   try {
     const response = await api.post("/auth/token/", { email, password });
+
+    // Store token in localStorage
     localStorage.setItem("access_token", response.data.access);
     localStorage.setItem("refresh_token", response.data.refresh);
+
     api.defaults.headers.common[
       "Authorization"
     ] = `Bearer ${response.data.access}`;
@@ -53,16 +62,23 @@ export const submitStudyPreference = async (
   }
 };
 
-export const getUserProfile = async (userId: number) => {
+export const getUserProfile = async () => {
   const token = localStorage.getItem("access_token");
   if (!token) {
     throw new Error("No access token found");
   }
-  const response = await api.get(`/auth/user/${userId}`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-  console.log(response.data);
-  return response.data;
+  const decoded: DecodedTokenData = jwtDecode(token);
+  const userId = decoded.user_id;
+  if (!userId) {
+    throw new Error("Invalid token");
+  }
+  try {
+    const response = await api.get(`auth/user/${userId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    throw new Error(error);
+  }
 };

@@ -18,3 +18,9 @@ export interface StudyPreferenceData {
   procrastination: boolean;
   physical_activity: string;
 }
+
+export interface DecodedTokenData {
+  user_id: number;
+  exp: number;
+  iat: number;
+}
