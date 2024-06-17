@@ -73,9 +73,7 @@ export const getUserProfile = async () => {
     throw new Error("Invalid token");
   }
   try {
-    const response = await api.get(`auth/user/${userId}`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    const response = await api.get(`auth/user/${userId}`);
     console.log(response.data);
     return response.data;
   } catch (error) {

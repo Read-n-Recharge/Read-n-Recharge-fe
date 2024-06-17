@@ -24,9 +24,6 @@ const LoginPage: React.FC = () => {
       const response = await login(credentials);
       console.log("Login successful:", response);
 
-      // const userId = response.user_id;
-      // console.log("user id " + userId);
-
       const userProfile = await getUserProfile();
       navigate(`/user/${userProfile.id}`);
     } catch (err: any) {
