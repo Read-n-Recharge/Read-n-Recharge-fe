@@ -7,10 +7,13 @@ interface TodoListProps {
     todos: Todo[];
     toggleTodo: (id: number) => void;
     deleteTodo: (id: number) => void;
-    updateTodo: (id: number, updatedTask: string, updatedDetails: string) => void;
+    updateTodo: (id: number, updatedTask: string, updatedDetails: string, updateDueDate: Date ) => void;
+    expandedTodoID: number | null;
+    handleToggleExpand: (id:number) => void;
+
 }
 
-const TodoList: React.FC<TodoListProps> = ({ todos, toggleTodo, deleteTodo, updateTodo}) => {
+const TodoList: React.FC<TodoListProps> = ({ todos, toggleTodo, deleteTodo, updateTodo, expandedTodoID, handleToggleExpand}) => {
     return (
         <ul className="todo-list">
             {todos.map((todo) => (
@@ -20,6 +23,8 @@ const TodoList: React.FC<TodoListProps> = ({ todos, toggleTodo, deleteTodo, upda
                     toggleTodo={toggleTodo}
                     deleteTodo={deleteTodo}
                     updateTodo={updateTodo}
+                    isExpanded={expandedTodoID === todo.id}
+                    handleToggleExpand={handleToggleExpand}
                 />
             ))}
         </ul>

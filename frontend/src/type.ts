@@ -23,6 +23,7 @@ export type Todo = {
   id: number;
   task: string;
   details: string;
+  dueDate: Date;
   isCompleted: boolean;
 };
 
