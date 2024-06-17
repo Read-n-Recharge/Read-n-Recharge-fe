@@ -5,6 +5,7 @@ import PopupComponent from "./popup";
 import { AnimatePresence } from "framer-motion";
 import { UserData } from "../type";
 
+
 const RegisterForm: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -14,15 +15,16 @@ const RegisterForm: React.FC = () => {
   const [userId, setUserId] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
+  const [passwordError, setPasswordError] = useState<string | null>(null);
+  const [confirmPasswordError, setConfirmPasswordError] = useState<
+    string | null
+  >(null);
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
 
-    if (password !== confirmPassword) {
-      setError("Passwords do not match");
-      return;
-    }
     const registerData: UserData = {
       email,
       password,
@@ -33,7 +35,7 @@ const RegisterForm: React.FC = () => {
 
     try {
       const response = await register(registerData);
-      
+
       console.log("Registration successful:", response);
       if (response.user_id) {
         setUserId(response.user_id);
@@ -52,6 +54,46 @@ const RegisterForm: React.FC = () => {
   }
   const handleClosePopup = () => {
     setError(null);
+  };
+
+  const validatePassword = (password: string) => {
+    const lengthPassword = /.{8,}/;
+    const numberPassword = /(?=.*\d)/;
+    const letterPassword = /(?=.*[a-zA-Z])/;
+
+    if (
+      !lengthPassword.test(password) ||
+      !letterPassword.test(password) ||
+      !numberPassword.test(password)
+    ) {
+      return "Password must contain at least one number and one letter, and at least 8 or more characters";
+    }
+    return null;
+  };
+
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newPassword = e.target.value;
+    setPassword(newPassword);
+    const validationError = validatePassword(newPassword);
+    setPasswordError(validationError);
+    setError(null);
+  };
+  const validateConfirmPassword = (
+    confirmPassword: string,
+    password: string
+  ) => {
+    if (confirmPassword !== password) {
+      setConfirmPasswordError("Passwords do not match");
+    } else {
+      setConfirmPasswordError(null);
+    }
+  };
+  const handleConfirmPasswordChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const newConfirmPassword = e.target.value;
+    setConfirmPassword(newConfirmPassword);
+    validateConfirmPassword(newConfirmPassword, password);
   };
 
   return (
@@ -130,11 +172,15 @@ const RegisterForm: React.FC = () => {
             name="password"
             id="password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={handlePasswordChange}
             className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
             placeholder="••••••••"
+            title="Password must contain at least one number and one letter, and at least 8 or more characters"
             required
           />
+          {passwordError && (
+            <p className="text-red-500 text-xs mt-2">{passwordError}</p>
+          )}
         </div>
         <div>
           <label
@@ -148,11 +194,14 @@ const RegisterForm: React.FC = () => {
             name="confirmPassword"
             id="confirmPassword"
             value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
+            onChange={handleConfirmPasswordChange}
             className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
             placeholder="••••••••"
             required
           />
+          {confirmPasswordError && (
+            <p className="text-red-500 text-xs mt-2">{confirmPasswordError}</p>
+          )}
         </div>
 
         <button
