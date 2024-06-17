@@ -44,7 +44,7 @@ const StudyForm: React.FC<StudyFormProps> = ({ userId }) => {
         <h1 className="text-xl font-bold text-gray-900 md:text-2xl py-3 text-center">
           Personal study preference
         </h1>
-        <p className="">choose for what you are</p>
+        <p className="" >Select for what you are</p>
       </div>
 
       <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
@@ -61,7 +61,7 @@ const StudyForm: React.FC<StudyFormProps> = ({ userId }) => {
             onChange={(e) => setChronotype(e.target.value)}
             className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
           >
-            <option value="">Are you a morning person or a night owl?</option>
+            <option value="" disabled hidden>Are you a morning person or a night owl?</option>
             <option value="early_bird">Early Bird</option>
             <option value="night_owl">Night Owl</option>
           </select>
@@ -80,7 +80,7 @@ const StudyForm: React.FC<StudyFormProps> = ({ userId }) => {
             onChange={(e) => setConcentration(e.target.value)}
             className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
           >
-            <option value="">How focused are you</option>
+            <option value="" disabled hidden>How focused are you</option>
             <option value="low">Low</option>
             <option value="normal">Normal</option>
             <option value="high">High</option>
@@ -100,7 +100,7 @@ const StudyForm: React.FC<StudyFormProps> = ({ userId }) => {
             onChange={(e) => setStudyingStyle(e.target.value)}
             className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
           >
-            <option value="">Solo or with friends</option>
+            <option value="" disabled hidden>Solo or with friends</option>
             <option value="group">Group Study</option>
             <option value="solo">Solo Study</option>
           </select>

@@ -24,3 +24,11 @@ export interface DecodedTokenData {
   exp: number;
   iat: number;
 }
+export type Todo = {
+  id: number;
+  task: string;
+  details: string;
+  isCompleted: boolean;
+};
+
+

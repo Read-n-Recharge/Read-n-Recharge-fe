@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { NavLink, useParams } from "react-router-dom";
 import { getUserProfile } from "../services/api";
 import { UserData } from "../type";
 
@@ -39,6 +40,15 @@ const UserProfile: React.FC = () => {
           <p>Email: {user.email}</p>
         </div>
       )}
+      <div>
+      <ul>
+        <li>
+          <NavLink to="/todo-list/:id">
+              Todo List
+          </NavLink>
+        </li>
+      </ul>
+    </div>
     </div>
   );
 };
