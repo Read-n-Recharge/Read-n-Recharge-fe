@@ -20,6 +20,7 @@ export interface StudyPreferenceData {
 }
 
 export type Todo = {
+  id: number;
   title: string;
   details: string;
   deadlines: string;

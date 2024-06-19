@@ -95,13 +95,16 @@ export const CreateTask = async (task: Partial<Todo>): Promise<Todo[]> => {
   }
 };
 
-export const UpdateTask = async (id:Todo):Promise<Todo[]> => {
+export const UpdateTask = async (
+  user: number,
+  updatedTask: Partial<Todo>
+): Promise<Todo[]> => {
   const token = localStorage.getItem("access_token");
   if (!token) {
     throw new Error("No access token found");
   }
   try {
-    const response = await api.put(`task/tasks/update/${id}`);
+    const response = await api.put(`task/tasks/update/${user}`, updatedTask);
     console.log(response.data);
     return response.data;
   } catch (err) {

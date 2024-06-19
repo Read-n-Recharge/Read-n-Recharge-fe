@@ -58,14 +58,14 @@ const TaskForm: React.FC<TaskFormProps> = ({ onTaskCreated }) => {
   };
 
   return (
-    <div>
+    <div className="w-3/4 border border-black p-4 rounded-lg m-2">
       <AnimatePresence>
         {isAdding && (
           <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3 }}
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.9 }}
             className="overflow-hidden"
           >
             <form
@@ -98,7 +98,7 @@ const TaskForm: React.FC<TaskFormProps> = ({ onTaskCreated }) => {
                   Task Details
                 </label>
                 <textarea
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  className="border rounded w-full text-gray-700"
                   id="taskDetails"
                   value={details}
                   onChange={(e) => setDetails(e.target.value)}
@@ -112,7 +112,7 @@ const TaskForm: React.FC<TaskFormProps> = ({ onTaskCreated }) => {
                   Task Deadlines
                 </label>
                 <input
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700"
                   id="taskDeadlines"
                   type="date"
                   value={deadlines}
@@ -127,7 +127,7 @@ const TaskForm: React.FC<TaskFormProps> = ({ onTaskCreated }) => {
                   Task Complexity
                 </label>
                 <select
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700"
                   id="taskComplexity"
                   value={complexity}
                   onChange={(e) => setComplexity(e.target.value)}
@@ -137,15 +137,15 @@ const TaskForm: React.FC<TaskFormProps> = ({ onTaskCreated }) => {
                   <option value="high">High</option>
                 </select>
               </div>
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-end gap-2">
                 <button
-                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                  className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                   type="submit"
                 >
                   Save Task
                 </button>
                 <button
-                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                  className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                   type="submit"
                   onClick={handleCancelTaskClick}
                 >
@@ -156,9 +156,17 @@ const TaskForm: React.FC<TaskFormProps> = ({ onTaskCreated }) => {
           </motion.div>
         )}
       </AnimatePresence>
-      <button onClick={handleAddTaskClick} className="bg-black text-white">
-        {isAdding ? "Cancel Form" : "Add Task"}
-      </button>
+      <div className="text-center">
+        <button
+          onClick={handleAddTaskClick}
+          className={`font-semibold rounded focus:outline-none focus:shadow-outline ${
+            isAdding ? "bg-red-500 hover:bg-red-700 text-white p-2" : ""
+          }`}
+        >
+          {isAdding ? "Cancel Form" : "Add Task"}
+        </button>
+      </div>
+
       {error && <PopupComponent error={error} onClose={handleClosePopup} />}
     </div>
   );
