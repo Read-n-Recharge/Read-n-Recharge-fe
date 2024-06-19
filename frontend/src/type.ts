@@ -20,11 +20,10 @@ export interface StudyPreferenceData {
 }
 
 export type Todo = {
-  id: number;
-  task: string;
+  title: string;
   details: string;
-  dueDate: Date;
-  isCompleted: boolean;
+  deadlines: string;
+  complexity: string;
+  complete: boolean;
+  user: number;
 };
-
-

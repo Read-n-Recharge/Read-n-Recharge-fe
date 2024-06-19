@@ -8,7 +8,7 @@ import PopupComponent from "../components/popup";
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState<any | null>(null); 
+  const [error, setError] = useState<any | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
 
@@ -27,7 +27,7 @@ const LoginPage: React.FC = () => {
       console.log("user id " + userId);
 
       const userProfile = await getUserProfile(userId);
-      navigate(`/user/${userProfile.id}`);
+      navigate("/todo-list");
     } catch (err: any) {
       console.error("Login failed:", err);
       setError(
@@ -35,7 +35,7 @@ const LoginPage: React.FC = () => {
           "Login failed. Please check your email and password."
       );
     } finally {
-      setIsSubmitting(false); 
+      setIsSubmitting(false);
     }
   };
 

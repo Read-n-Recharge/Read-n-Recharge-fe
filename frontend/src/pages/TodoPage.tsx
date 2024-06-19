@@ -1,77 +1,62 @@
-import React, {useState} from "react";
-import TodoForm from "../components/TodoForm";
-import TodoList from "../components/TodoList";
+import React, { useEffect, useState } from "react";
 import { Todo } from "../type";
-import "../styles/Todo.css";
+import { RetrieveTask } from "../services/api";
+import TaskForm from "../components/TodoForm";
+import PopupComponent from "../components/popup";
+import { AnimatePresence } from "framer-motion";
+import TaskDetails from "../components/TodoItem";
 
+const TasksList: React.FC = () => {
+  const [tasks, setTasks] = useState<Todo[]>([]);
+  const [error, setError] = useState<string | null>(null);
+  const [visibleTaskId, setVisibleTaskId] = useState<number | null>(null);
 
-const TodoPage: React.FC = () => {
-    const [todos, setTodos] = useState<Todo[]> ([]);
-    const [isAdding, setisAdding] = useState<boolean>(false);
-    const [expandedTodoID, setExpandedTodoID] = useState<number | null>(null);
-
-    const addTodo = (task: string, details: string, dueDate: Date) => {
-        const newTodo: Todo = {
-            id: todos.length + 1,
-            task,
-            details,
-            dueDate,
-            isCompleted: false,
-        };
-        setTodos([newTodo, ...todos]);
-        setisAdding(false);
-    };
-
-    const updateTodo = (id: number, updatedTask: string, updatedDetails: string, updateDueDate: Date) => {
-        const updatedTodos = todos.map((todo) => 
-            todo.id === id ? { ...todo, task: updatedTask, details: updatedDetails, dueDate: updateDueDate} : todo
-        );
-        setTodos(updatedTodos);
+  const fetchTask = async () => {
+    try {
+      const tasks = await RetrieveTask();
+      console.log("Tasks retrieved:", tasks); // Check the structure of the retrieved tasks
+      setTasks(tasks);
+    } catch (error) {
+      setError("Error retrieving tasks");
     }
+  };
 
-    const toggleTodo = (id: number) => {
-        const updatedTodos = todos.map((todo) => 
-            todo.id === id ? { ...todo, isCompleted: !todo.isCompleted} : todo
-        );
-        setTodos(updatedTodos);
-    };
+  useEffect(() => {
+    fetchTask();
+  }, []);
 
-    const deleteTodo = (id: number ) => {
-        const updatedTodos = todos.filter((todo) => todo.id !== id);
-        setTodos(updatedTodos);
-    };
+  const handleTitleClick = (taskId: number) => {
+    console.log("Task clicked:", taskId); // Log the clicked task ID
+    setVisibleTaskId((prevTaskId) => (prevTaskId === taskId ? null : taskId));
+  };
 
-    const toggleForm = () => {
-        setisAdding(!isAdding);
-    }
+  const handleClosePopup = () => {
+    setError(null);
+  };
 
-    const handleToggleExpand = (id: number) => {
-        setExpandedTodoID(expandedTodoID === id ? null : id);
-    }
-
-    return  (
-        <div>
-
-            <div className="todo-container">
-                <h1 className="todo-header">Todo List</h1>
-                <TodoList 
-                    todos={todos} 
-                    toggleTodo={toggleTodo} 
-                    deleteTodo={deleteTodo} 
-                    updateTodo={updateTodo}
-                    expandedTodoID={expandedTodoID}
-                    handleToggleExpand={handleToggleExpand}
-                />
-                {isAdding ? (
-                    <TodoForm addTodo={addTodo} toggleForm={toggleForm}/>
-                ) : (
-                    <button className="todo-add-button" onClick={toggleForm}>
-                        Add Task
-                    </button>
-                )}
+  return (
+    <div className="flex flex-col items-center">
+      <ul>
+        {tasks.map((task, index) => (
+          <li key={index} className="border solid w-32 m-2">
+            <div>
+              <h2
+                className="cursor-pointer"
+                onClick={() => handleTitleClick(index)}
+              >
+                {task.title}
+              </h2>
+              <AnimatePresence>
+                {visibleTaskId === index && <TaskDetails task={task} />}
+              </AnimatePresence>
             </div>
-        </div>
-    );
+          </li>
+        ))}
+      </ul>
+      <TaskForm onTaskCreated={fetchTask} />
+      {error && <PopupComponent error={error} onClose={handleClosePopup} />}
+    </div>
+  );
 };
 
-export default TodoPage;
+export default TasksList;
