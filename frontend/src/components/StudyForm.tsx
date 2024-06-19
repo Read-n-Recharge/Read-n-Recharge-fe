@@ -124,7 +124,7 @@ const StudyForm: React.FC<StudyFormProps> = ({ userId }) => {
               className="mr-2"
             />
             <label htmlFor="procrastinationYes" className="mr-4">
-              Yes, I’m procrastinate person
+              Yes, I’m a procrastinating person
             </label>
             <input
               type="radio"

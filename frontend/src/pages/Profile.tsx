@@ -41,14 +41,12 @@ const UserProfile: React.FC = () => {
         </div>
       )}
       <div>
-      <ul>
-        <li>
-          <NavLink to="/todo-list/:id">
-              Todo List
-          </NavLink>
-        </li>
-      </ul>
-    </div>
+        <ul>
+          <li>
+            <NavLink to="/todo-list">Todo List</NavLink>
+          </li>
+        </ul>
+      </div>
     </div>
   );
 };

@@ -26,9 +26,10 @@ export interface DecodedTokenData {
 }
 export type Todo = {
   id: number;
-  task: string;
+  title: string;
   details: string;
-  isCompleted: boolean;
+  deadlines: string;
+  complexity: string;
+  complete: boolean;
+  user: number;
 };
-
-

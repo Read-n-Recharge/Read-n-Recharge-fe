@@ -5,6 +5,7 @@ import {
   StudyPreferenceData,
   UserData,
   DecodedTokenData,
+  Todo,
 } from "../type";
 import { jwtDecode } from "jwt-decode";
 
@@ -80,3 +81,62 @@ export const getUserProfile = async () => {
     throw new Error(error);
   }
 };
+
+export const RetrieveTask = async (): Promise<Todo[]> => {
+  const token = localStorage.getItem("access_token");
+  if (!token) {
+    throw new Error("No access token found");
+  }
+  try {
+    const response = await api.get(`task/tasks`);
+    // console.log(response.data);
+    return response.data;
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const CreateTask = async (task: Partial<Todo>): Promise<Todo[]> => {
+  const token = localStorage.getItem("access_token");
+  if (!token) {
+    throw new Error("No access token found");
+  }
+  try {
+    const response = await api.post(`/task/tasks/create`, task);
+    console.log(response.data);
+    return response.data;
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const UpdateTask = async (
+  user: number,
+  updatedTask: Partial<Todo>
+): Promise<Todo[]> => {
+  const token = localStorage.getItem("access_token");
+  if (!token) {
+    throw new Error("No access token found");
+  }
+  try {
+    const response = await api.put(`task/tasks/update/${user}`, updatedTask);
+    console.log(response.data);
+    return response.data;
+  } catch (err) {
+    throw err;
+  }
+};
+
+// export const DeleteTask = async (id:Todo) => {
+//   const token = localStorage.getItem("access_token");
+//   if (!token) {
+//     throw new Error("No access token found");
+//   }
+//   try {
+//     const response = await api.put(`task/tasks/delete/${id}`);
+//     console.log(response.data);
+//     return response.data;
+//   } catch (err) {
+//     throw err;
+//   }
+// };

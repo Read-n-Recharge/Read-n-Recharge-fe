@@ -25,7 +25,7 @@ const LoginPage: React.FC = () => {
       console.log("Login successful:", response);
 
       const userProfile = await getUserProfile();
-      navigate(`/user/${userProfile.id}`);
+      navigate("/todo-list");
     } catch (err: any) {
       console.error("Login failed:", err);
       setError(
