@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Todo } from "../type";
-import { RetrieveTask } from "../services/api";
+import { RetrieveTask, DeleteTask, UpdateTask } from "../services/api";
 import TaskForm from "../components/TodoForm";
 import PopupComponent from "../components/popup";
 import { AnimatePresence } from "framer-motion";
@@ -10,6 +10,7 @@ const TasksList: React.FC = () => {
   const [tasks, setTasks] = useState<Todo[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [visibleTaskId, setVisibleTaskId] = useState<number | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
 
   const fetchTask = async () => {
     try {
@@ -34,6 +35,20 @@ const TasksList: React.FC = () => {
     setError(null);
   };
 
+  const handleDeleteTask = async (taskId: number) => {
+    try {
+      await DeleteTask(taskId);
+      setSuccess("Task deleted successfully!");
+      setTimeout(() => setSuccess(null), 3000);
+      fetchTask();
+    } catch (error) {
+      setError("Error deleting task. Please try again.");
+      console.error("Delete task error:", error);
+    }
+  };
+  const handleCheckboxChange = (taskId: number) => {
+    handleDeleteTask(taskId);
+  };
   const handleUpdate = () => {
     fetchTask();
   };
@@ -54,18 +69,38 @@ const TasksList: React.FC = () => {
               key={task.id}
               className="border solid rounded-md w-3/4 cursor-pointer border-black p-3 m-2"
             >
-              <div>
-                <h2
-                  className="cursor-pointer py-1"
+              <div className="header pl-5 pt-1">
+                <div
+                  className="tiltle grid grid-cols-[auto_auto_1fr] items-center gap-2"
                   onClick={() => handleTitleClick(task.id)}
                 >
-                  {task.title}
-                </h2>
-                <AnimatePresence>
-                  {visibleTaskId === task.id && (
-                    <TaskDetails task={task} onUpdate={handleUpdate} />
-                  )}
-                </AnimatePresence>
+                  <input
+                    type="checkbox"
+                    checked={task.complete}
+                    onChange={() => handleCheckboxChange(task.id)}
+                    className="mx-2 cursor-pointer transform scale-150"
+                  />
+                  <h2
+                    className={`cursor-pointer py-1 px-1 ${
+                      task.complete ? "line-through" : ""
+                    }`}
+                  >
+                    {task.title}
+                  </h2>
+                  <span className="justify-self-end">
+                    <i
+                      className="fa fa-ellipsis-v text-md"
+                      onChange={() => handleCheckboxChange(task.id)}
+                    ></i>
+                  </span>
+                </div>
+                <div>
+                  <AnimatePresence>
+                    {visibleTaskId === task.id && (
+                      <TaskDetails task={task} onUpdate={handleUpdate} />
+                    )}
+                  </AnimatePresence>
+                </div>
               </div>
             </li>
           ))}

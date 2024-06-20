@@ -127,16 +127,16 @@ export const UpdateTask = async (
   }
 };
 
-// export const DeleteTask = async (id:Todo) => {
-//   const token = localStorage.getItem("access_token");
-//   if (!token) {
-//     throw new Error("No access token found");
-//   }
-//   try {
-//     const response = await api.put(`task/tasks/delete/${id}`);
-//     console.log(response.data);
-//     return response.data;
-//   } catch (err) {
-//     throw err;
-//   }
-// };
+export const DeleteTask = async (id: number): Promise<Todo[]> => {
+  const token = localStorage.getItem("access_token");
+  if (!token) {
+    throw new Error("No access token found");
+  }
+  try {
+    const response = await api.delete(`task/tasks/delete/${id}`);
+    console.log(response.data);
+    return response.data;
+  } catch (err) {
+    throw err;
+  }
+};

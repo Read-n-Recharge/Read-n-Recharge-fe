@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Todo } from "../type";
-import { UpdateTask } from "../services/api";
+import { UpdateTask, DeleteTask } from "../services/api";
 import PopupComponent from "./popup";
 
 interface TaskDetailProps {
@@ -42,6 +42,18 @@ const TaskDetails: React.FC<TaskDetailProps> = ({ task, onUpdate }) => {
 
   const handleClosePopup = () => {
     setError(null);
+  };
+
+  const handleDeleteTask = async () => {
+    try {
+      await DeleteTask(task.id);
+      onUpdate();
+      setSuccess("Task deleted successfully!");
+      setTimeout(() => setSuccess(null), 3000);
+    } catch (error) {
+      setError("Error deleting task. Please try again.");
+      console.error("Delete task error:", error);
+    }
   };
 
   const animationProps = {
@@ -107,10 +119,10 @@ const TaskDetails: React.FC<TaskDetailProps> = ({ task, onUpdate }) => {
                   <option value="high">High</option>
                 </select>
               </div>
-              <div className="flex items-center justify-end gap-2 pt-5">
+              <div className="flex items-center justify-end gap-3 pt-5">
                 <button
                   onClick={handleUpdateTask}
-                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline "
                 >
                   Update
                 </button>
@@ -175,13 +187,26 @@ const TaskDetails: React.FC<TaskDetailProps> = ({ task, onUpdate }) => {
         )}
       </AnimatePresence>
       {!isEditing && (
-        <div className="flex justify-end m-2">
-          <button
-            onClick={hanleEditingTask}
-            className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-          >
-            Edit
-          </button>
+        <div className="flex m-2 gap-2 justify-between">
+          <div className="my-2 gap-2 flex">
+            <button className="bg-black text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline w-32">
+              Let's start
+            </button>
+          </div>
+          <div className="m-2 gap-1 flex">
+            <button
+              onClick={hanleEditingTask}
+              className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 w-24 rounded-full focus:outline-none focus:shadow-outline"
+            >
+              Edit
+            </button>
+            <button
+              onClick={handleDeleteTask}
+              className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline w-24"
+            >
+              Delete
+            </button>
+          </div>
         </div>
       )}
       {success && <div className="mt-2 text-green-600">{success}</div>}

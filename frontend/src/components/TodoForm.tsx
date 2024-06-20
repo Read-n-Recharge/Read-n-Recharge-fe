@@ -156,11 +156,11 @@ const TaskForm: React.FC<TaskFormProps> = ({ onTaskCreated }) => {
           </motion.div>
         )}
       </AnimatePresence>
-      <div className="text-center">
+      <div className="text-center pt-2">
         <button
           onClick={handleAddTaskClick}
           className={`font-semibold rounded focus:outline-none focus:shadow-outline ${
-            isAdding ? "bg-red-500 hover:bg-red-700 text-white p-2" : ""
+            isAdding ? "p-2 hover:underline" : ""
           }`}
         >
           {isAdding ? "Cancel Form" : "Add Task"}
