@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Todo } from "../type";
 import { UpdateTask, DeleteTask } from "../services/api";
-import PopupComponent from "./popup";
+import PopupComponent from "./popupErr";
+import FlashCard from "./FlashCard";
 
 interface TaskDetailProps {
   task: Todo;
@@ -33,7 +34,7 @@ const TaskDetails: React.FC<TaskDetailProps> = ({ task, onUpdate }) => {
       onUpdate();
       setIsEditing(false);
       setSuccess("Task updated successfully!");
-      setTimeout(() => setSuccess(null), 3000);
+      setTimeout(() => setSuccess(null), 1000);
     } catch (error) {
       setError("Error updating task. Please try again.");
       console.error("Update task error:", error);
@@ -209,7 +210,9 @@ const TaskDetails: React.FC<TaskDetailProps> = ({ task, onUpdate }) => {
           </div>
         </div>
       )}
-      {success && <div className="mt-2 text-green-600">{success}</div>}
+      <AnimatePresence>
+        {success && <FlashCard message={success} />}
+      </AnimatePresence>
     </motion.div>
   );
 };

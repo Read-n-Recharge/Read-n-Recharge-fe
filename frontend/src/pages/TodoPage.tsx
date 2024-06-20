@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Todo } from "../type";
 import { RetrieveTask, DeleteTask, UpdateTask } from "../services/api";
 import TaskForm from "../components/TodoForm";
-import PopupComponent from "../components/popup";
+import PopupComponent from "../components/popupErr";
 import { AnimatePresence } from "framer-motion";
 import TaskDetails from "../components/TodoDetail";
 
@@ -60,6 +60,7 @@ const TasksList: React.FC = () => {
           <h1 className="text-xl font-semibold border-b border-black pb-2">
             Task To-do
           </h1>
+          <i className="ri-add-circle-line"></i>
         </div>
       </div>
       <div className="flex items-center justify-center m-2 mt-2">
@@ -105,7 +106,7 @@ const TasksList: React.FC = () => {
             </li>
           ))}
           <TaskForm onTaskCreated={fetchTask} />
-          {/* {error && <PopupComponent error={error} onClose={handleClosePopup} />} */}
+          {error && <PopupComponent error={error} onClose={handleClosePopup} />}
         </ul>
       </div>
     </div>

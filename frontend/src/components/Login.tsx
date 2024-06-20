@@ -3,7 +3,7 @@ import { login, getUserProfile } from "../services/api";
 import { useNavigate } from "react-router-dom";
 import { AuthCredentials } from "../types";
 import { AnimatePresence } from "framer-motion";
-import PopupComponent from "../components/popup";
+import PopupComponent from "../components/popupErr";
 
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState("");
