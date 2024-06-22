@@ -5,6 +5,7 @@ import { ServicePage } from "./pages/servicePage";
 import { AuthPage } from "./pages/AuthPage";
 import UserProfile from "./pages/Profile";
 import TasksList from "./pages/TodoPage";
+import "../src/styles/App.css";
 function App() {
   return (
     <Router>

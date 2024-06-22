@@ -140,3 +140,22 @@ export const DeleteTask = async (id: number): Promise<Todo[]> => {
     throw err;
   }
 };
+
+export const RetrieveStudyPreference = async () => {
+  const token = localStorage.getItem("access_token");
+  if (!token) {
+    throw new Error("No access token found");
+  }
+  const decoded: DecodedTokenData = jwtDecode(token);
+  const userId = decoded.user_id;
+  if (!userId) {
+    throw new Error("Invalid token");
+  }
+  try {
+    const response = await api.get(`auth/form/${userId}`);
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    throw new Error(error);
+  }
+};

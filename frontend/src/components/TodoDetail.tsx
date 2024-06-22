@@ -4,6 +4,7 @@ import { Todo } from "../type";
 import { UpdateTask, DeleteTask } from "../services/api";
 import PopupComponent from "./popupErr";
 import FlashCard from "./FlashCard";
+import RealTimeDataForm from "./RealTimeDataForm";
 
 interface TaskDetailProps {
   task: Todo;
@@ -19,6 +20,9 @@ const TaskDetails: React.FC<TaskDetailProps> = ({ task, onUpdate }) => {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
 
+  const [showRealTimeForm, setShowRealTimeForm] = useState<boolean>(false);
+  const [studyMethod, setStudyMethod] = useState<string | null>(null);
+
   const hanleEditingTask = () => {
     setIsEditing(true);
   };
@@ -30,7 +34,7 @@ const TaskDetails: React.FC<TaskDetailProps> = ({ task, onUpdate }) => {
       complexity,
     };
     try {
-      const updatedTaskData = await UpdateTask(task.id, updatedTasks);
+      await UpdateTask(task.id, updatedTasks);
       onUpdate();
       setIsEditing(false);
       setSuccess("Task updated successfully!");
@@ -55,6 +59,15 @@ const TaskDetails: React.FC<TaskDetailProps> = ({ task, onUpdate }) => {
       setError("Error deleting task. Please try again.");
       console.error("Delete task error:", error);
     }
+  };
+
+  const handleStartTask = () => {
+    setShowRealTimeForm(true);
+  };
+
+  const handleRealTimeSubmit = (suggestedMethod) => {
+    setStudyMethod(suggestedMethod);
+    setShowRealTimeForm(false);
   };
 
   const animationProps = {
@@ -190,7 +203,10 @@ const TaskDetails: React.FC<TaskDetailProps> = ({ task, onUpdate }) => {
       {!isEditing && (
         <div className="flex m-2 gap-2 justify-between">
           <div className="my-2 gap-2 flex">
-            <button className="bg-black text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline w-32">
+            <button
+              className="bg-gray-900 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline w-32"
+              onClick={handleStartTask}
+            >
               Let's start
             </button>
           </div>
@@ -213,6 +229,13 @@ const TaskDetails: React.FC<TaskDetailProps> = ({ task, onUpdate }) => {
       <AnimatePresence>
         {success && <FlashCard message={success} />}
       </AnimatePresence>
+      {showRealTimeForm && (
+        <RealTimeDataForm
+          onSubmit={handleRealTimeSubmit}
+          onClose={() => setShowRealTimeForm(false)}
+          task={task}
+        />
+      )}
     </motion.div>
   );
 };
