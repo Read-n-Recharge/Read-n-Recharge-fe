@@ -24,14 +24,11 @@ const LoginPage: React.FC = () => {
       const response = await login(credentials);
       console.log("Login successful:", response);
 
-      const userProfile = await getUserProfile();
+      await getUserProfile();
       navigate("/todo-list");
     } catch (err: any) {
       console.error("Login failed:", err);
-      setError(
-        err.response?.data ||
-          "Login failed. Please check your email and password."
-      );
+      setError(err);
     } finally {
       setIsSubmitting(false);
     }
