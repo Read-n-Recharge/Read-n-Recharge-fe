@@ -7,8 +7,6 @@ import SuggestionForm from "./suggestionForm";
 const RealTimeDataForm = ({ onSubmit, onClose, task }) => {
   const [stressLevel, setStressLevel] = useState("");
   const [noiseLevel, setNoiseLevel] = useState("");
-  const [motivationLevel, setMotivationLevel] = useState("");
-  const [environment, setEnvironment] = useState("");
   const [error, setError] = useState<string | null>(null);
 
   const [showSuggestionForm, setShowSuggestionForm] = useState<boolean>(false);
@@ -19,8 +17,6 @@ const RealTimeDataForm = ({ onSubmit, onClose, task }) => {
       const realTimeData = {
         stressLevel,
         noiseLevel,
-        motivationLevel,
-        environment,
       };
       const userPreference = await RetrieveStudyPreference();
       const taskData = { complexity: task.complexity };
@@ -33,8 +29,12 @@ const RealTimeDataForm = ({ onSubmit, onClose, task }) => {
         realTimeData,
         taskData
       );
-      setStudyMethod(suggestionMethod);
-      setShowSuggestionForm(true);
+      if (suggestionMethod) {
+        setStudyMethod(suggestionMethod);
+        setShowSuggestionForm(true);
+      } else {
+        setError("No study method could be suggested. Please try again.");
+      }
     } catch (error) {
       setError(
         "Error fetching user preferences or suggesting study method. Please try again."
@@ -69,9 +69,9 @@ const RealTimeDataForm = ({ onSubmit, onClose, task }) => {
             className="border p-2 rounded w-full"
           >
             <option value="">Select</option>
-            <option value="Low">Low</option>
-            <option value="Medium">Medium</option>
-            <option value="High">High</option>
+            <option value="low">Low</option>
+            <option value="normal">Medium</option>
+            <option value="high">High</option>
           </select>
         </div>
         <div className="mb-2">
@@ -82,34 +82,9 @@ const RealTimeDataForm = ({ onSubmit, onClose, task }) => {
             className="border p-2 rounded w-full"
           >
             <option value="">Select</option>
-            <option value="Low">Quiet</option>
-            <option value="Medium">Moderate</option>
-            <option value="High">Noisy</option>
-          </select>
-        </div>
-        <div className="mb-2">
-          <label className="block">Motivation Level</label>
-          <select
-            value={motivationLevel}
-            onChange={(e) => setMotivationLevel(e.target.value)}
-            className="border p-2 rounded w-full"
-          >
-            <option value="">Select</option>
-            <option value="Low">Low</option>
-            <option value="Medium">Medium</option>
-            <option value="High">High</option>
-          </select>
-        </div>
-        <div className="mb-4">
-          <label className="block">Study Environment</label>
-          <select
-            value={environment}
-            onChange={(e) => setEnvironment(e.target.value)}
-            className="border p-2 rounded w-full"
-          >
-            <option value="">Select</option>
-            <option value="Group">Group (with friends!)</option>
-            <option value="Solo">Solo (peace and quiet)</option>
+            <option value="quiet">Quiet</option>
+            <option value="moderate">Moderate</option>
+            <option value="noisy">Noisy</option>
           </select>
         </div>
         <div className="flex justify-end">
