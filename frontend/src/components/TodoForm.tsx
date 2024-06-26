@@ -26,7 +26,7 @@ const TaskForm: React.FC<TaskFormProps> = ({ onTaskCreated }) => {
     const newTask: Partial<Todo> = {
       title,
       details,
-      deadlines,
+      deadlines: deadlines === "" ? null : deadlines,
       complexity,
       complete: false,
     };
@@ -51,7 +51,7 @@ const TaskForm: React.FC<TaskFormProps> = ({ onTaskCreated }) => {
     setTitle("");
     setDetails("");
     setDeadlines("");
-    setComplexity("normal");
+    setComplexity("");
   };
   const handleClosePopup = () => {
     setError(null);
@@ -132,6 +132,7 @@ const TaskForm: React.FC<TaskFormProps> = ({ onTaskCreated }) => {
                   value={complexity}
                   onChange={(e) => setComplexity(e.target.value)}
                 >
+                  <option value="">Select</option>
                   <option value="low">Low</option>
                   <option value="normal">Normal</option>
                   <option value="high">High</option>

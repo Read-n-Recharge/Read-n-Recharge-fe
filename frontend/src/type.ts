@@ -28,7 +28,7 @@ export type Todo = {
   id: number;
   title: string;
   details: string;
-  deadlines: string;
+  deadlines;
   complexity: string;
   complete: boolean;
   user: number;
