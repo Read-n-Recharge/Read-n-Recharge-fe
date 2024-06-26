@@ -2,9 +2,9 @@ export function suggestStudyMethod(userPreferences, realTimeData, task) {
   let suggestedMethod;
 
   const noise = realTimeData.noiseLevel;
-  const complexity = task.complexity;
   const chronotype = userPreferences.chronotype;
   const stress = realTimeData.stressLevel;
+  const complexity = task.complexity;
 
   const currentHour = new Date().getHours();
   //morning (6 AM to 12 PM)
@@ -16,27 +16,37 @@ export function suggestStudyMethod(userPreferences, realTimeData, task) {
     (chronotype === "early_bird" && isMorning) ||
     (chronotype === "night_owl" && isNight)
   ) {
-    if (complexity !== "high") {
+    if (complexity === "normal" || complexity === "low") {
       if (noise === "noisy" || stress === "high") {
         suggestedMethod = "Pomodoro Technique";
       } else {
         suggestedMethod = "90-minute focus method";
       }
     } else {
-      suggestedMethod = "52-17 method";
+      suggestedMethod = "Pomodoro Technique";
     }
-  } else if (
+  }
+  //Early bird at night or night owl in the morning
+  else if (
     (chronotype === "early_bird" && isNight) ||
     (chronotype === "night_owl" && isMorning)
   ) {
-    if (complexity !== "high") {
+    if (complexity === "normal" || complexity === "low") {
       if (noise === "noisy" || stress === "high") {
-        suggestedMethod = "52-17 method";
-      } else {
         suggestedMethod = "Pomodoro Technique";
+      } else {
+        suggestedMethod = "52-17 method";
       }
     } else {
       suggestedMethod = "90-minute focus method";
+    }
+  }
+  // Default condition
+  else {
+    if (complexity === "normal") {
+      suggestedMethod = "52-17 method";
+    } else {
+      suggestedMethod = "Pomodoro Technique";
     }
   }
 

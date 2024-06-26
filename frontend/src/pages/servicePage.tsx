@@ -1,5 +1,5 @@
 import React from "react";
-import { Header } from "../components/Header";
+import { Header } from "../components/common/Header";
 import { motion } from "framer-motion"; // Import Framer Motion components
 import studyingImage from "../assets/studying.png";
 import bgImage from "../assets/ocean.webp";

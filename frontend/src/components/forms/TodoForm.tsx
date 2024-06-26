@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { Todo } from "../type";
-import { RetrieveTask, CreateTask } from "../services/api";
+import { Todo } from "../../type";
+import { RetrieveTask, CreateTask } from "../../services/api";
 import { motion, AnimatePresence } from "framer-motion";
-import PopupComponent from "./popupErr";
+import PopupComponent from "../common/popupErr";
 
 interface TaskFormProps {
   onTaskCreated: () => void;

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { register } from "../services/api";
-import StudyForm from "./StudyForm";
-import PopupComponent from "./popupErr";
+import StudyForm from "./forms/StudyForm";
+import PopupComponent from "./common/popupErr";
 import { AnimatePresence } from "framer-motion";
 import { UserData } from "../type";
 

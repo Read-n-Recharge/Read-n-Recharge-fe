@@ -28,6 +28,7 @@ const SuggestionForm = ({ suggestedMethod, onConfirm, onClose }) => {
             onChange={(e) => setSelectedMethod(e.target.value)}
             className="border p-2 rounded w-full"
           >
+            <option value="">{suggestedMethod}</option>
             <option value="Pomodoro technique">Pomodoro technique</option>
             <option value="52-17 method">52-17 method</option>
             <option value="90-minute focus sessions">

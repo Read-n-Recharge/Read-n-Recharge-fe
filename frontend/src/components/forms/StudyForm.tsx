@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { submitStudyPreference } from "../services/api";
+import { submitStudyPreference } from "../../services/api";
 import { useNavigate } from "react-router-dom";
 
 interface StudyFormProps {

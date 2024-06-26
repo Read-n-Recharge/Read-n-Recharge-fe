@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import "../styles/App.css";
+import "../../styles/App.css";
 
 interface PopupComponentProps {
   error: any;

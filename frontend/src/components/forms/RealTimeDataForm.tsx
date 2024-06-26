@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { RetrieveStudyPreference } from "../services/api";
-import { suggestStudyMethod } from "./StudyMethod";
+import { RetrieveStudyPreference } from "../../services/api";
+import { suggestStudyMethod } from "../utils/StudyMethod";
 import SuggestionForm from "./suggestionForm";
 
 const RealTimeDataForm = ({ onSubmit, onClose, task }) => {

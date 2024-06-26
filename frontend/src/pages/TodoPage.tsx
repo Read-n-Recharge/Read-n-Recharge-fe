@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Todo } from "../type";
 import { RetrieveTask, DeleteTask, UpdateTask } from "../services/api";
-import TaskForm from "../components/TodoForm";
-import PopupComponent from "../components/popupErr";
+import TaskForm from "../components/forms/TodoForm";
+import PopupComponent from "../components/common/popupErr";
 import { AnimatePresence } from "framer-motion";
 import TaskDetails from "../components/TodoDetail";
 

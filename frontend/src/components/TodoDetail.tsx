@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Todo } from "../type";
 import { UpdateTask, DeleteTask } from "../services/api";
-import PopupComponent from "./popupErr";
-import FlashCard from "./FlashCard";
-import RealTimeDataForm from "./RealTimeDataForm";
+import PopupComponent from "./common/popupErr";
+import FlashCard from "./common/FlashCard";
+import RealTimeDataForm from "./forms/RealTimeDataForm";
 
 interface TaskDetailProps {
   task: Todo;
