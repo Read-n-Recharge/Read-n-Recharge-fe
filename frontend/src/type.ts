@@ -33,3 +33,9 @@ export type Todo = {
   complete: boolean;
   user: number;
 };
+
+export interface Video {
+  id: string;
+  title: string;
+  url: string;
+}

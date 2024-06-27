@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { login, getUserProfile } from "../services/api";
 import { useNavigate } from "react-router-dom";
-import { AuthCredentials } from "../types";
+import { AuthCredentials } from "../type";
 import { AnimatePresence } from "framer-motion";
 import PopupComponent from "./common/popupErr";
 

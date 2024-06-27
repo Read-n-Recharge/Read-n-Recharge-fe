@@ -4,9 +4,22 @@ import { motion } from "framer-motion";
 const SuggestionForm = ({ suggestedMethod, onConfirm, onClose }) => {
   const [selectedMethod, setSelectedMethod] = useState(suggestedMethod);
   const [customTime, setCustomTime] = useState({ minutes: 0 });
+  const [error, setError] = useState<string | null>();
 
   const handleConfirm = () => {
+    if (selectedMethod === "custom time" && customTime.minutes < 1) {
+      setError("Custom time must be at least 1 minute.");
+      console.log("Custom time must be at least 1 minute.");
+      return;
+    }
     onConfirm(selectedMethod, customTime);
+    console.log(
+      "selected Method: ",
+      selectedMethod,
+      "customTime",
+      customTime.minutes,
+      "minute"
+    );
   };
 
   return (
@@ -44,10 +57,13 @@ const SuggestionForm = ({ suggestedMethod, onConfirm, onClose }) => {
               type="number"
               value={customTime.minutes}
               onChange={(e) =>
-                setCustomTime({ minutes: parseInt(e.target.value) })
+                setCustomTime({
+                  minutes: Math.max(1, parseInt(e.target.value)),
+                })
               }
               className="border p-2 rounded w-full"
             />
+            {error && <p className="text-red-500 text-xs">{error}</p>}
           </div>
         )}
         <div className="flex justify-end">

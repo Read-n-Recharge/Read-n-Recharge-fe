@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 import { RetrieveStudyPreference } from "../../services/api";
 import { suggestStudyMethod } from "../utils/StudyMethod";
 import SuggestionForm from "../forms/suggestionForm";
-import { Clock } from "../clock";
 import { useNavigate } from "react-router-dom";
 
 const RealTimeDataForm = ({ onClose, task }) => {
@@ -38,7 +37,7 @@ const RealTimeDataForm = ({ onClose, task }) => {
     }
 
     if (hasError) {
-      return;
+      return console.log("please rate your real-time data");
     }
 
     try {
