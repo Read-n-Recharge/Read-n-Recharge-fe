@@ -3,9 +3,10 @@ import { motion } from "framer-motion";
 
 const SuggestionForm = ({ suggestedMethod, onConfirm, onClose }) => {
   const [selectedMethod, setSelectedMethod] = useState(suggestedMethod);
+  const [customTime, setCustomTime] = useState({ minutes: 0 });
 
   const handleConfirm = () => {
-    onConfirm(selectedMethod);
+    onConfirm(selectedMethod, customTime);
   };
 
   return (
@@ -28,14 +29,27 @@ const SuggestionForm = ({ suggestedMethod, onConfirm, onClose }) => {
             onChange={(e) => setSelectedMethod(e.target.value)}
             className="border p-2 rounded w-full"
           >
-            <option value="">{suggestedMethod}</option>
-            <option value="Pomodoro technique">Pomodoro technique</option>
-            <option value="52-17 method">52-17 method</option>
             <option value="90-minute focus sessions">
               90-minute focus sessions
             </option>
+            <option value="Pomodoro technique">Pomodoro technique</option>
+            <option value="52-17 method">52-17 method</option>
+            <option value="custom time">Custom time</option>
           </select>
         </div>
+        {selectedMethod === "custom time" && (
+          <div className="mb-4">
+            <label>Custom Time (minutes): </label>
+            <input
+              type="number"
+              value={customTime.minutes}
+              onChange={(e) =>
+                setCustomTime({ minutes: parseInt(e.target.value) })
+              }
+              className="border p-2 rounded w-full"
+            />
+          </div>
+        )}
         <div className="flex justify-end">
           <button
             onClick={handleConfirm}

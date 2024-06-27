@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { RetrieveStudyPreference } from "../../services/api";
 import { suggestStudyMethod } from "../utils/StudyMethod";
-import SuggestionForm from "./suggestionForm";
+import SuggestionForm from "../forms/suggestionForm";
+import { Clock } from "../clock";
+import { useNavigate } from "react-router-dom";
 
-const RealTimeDataForm = ({ onSubmit, onClose, task }) => {
+const RealTimeDataForm = ({ onClose, task }) => {
   const [stressLevel, setStressLevel] = useState("");
   const [noiseLevel, setNoiseLevel] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -12,23 +14,46 @@ const RealTimeDataForm = ({ onSubmit, onClose, task }) => {
   const [showSuggestionForm, setShowSuggestionForm] = useState<boolean>(false);
   const [studyMethod, setStudyMethod] = useState<string | null>(null);
 
+  const [stressLevelErr, setStressLevelErr] = useState<string | null>(null);
+  const [noiseLevelErr, setNoiseLevelErr] = useState<string | null>(null);
+
+  const navigate = useNavigate();
+
   const handleSubmit = async () => {
+    let hasError = false;
+
+    if (!noiseLevel) {
+      setNoiseLevelErr(
+        "Please rate the noise level in your current environment"
+      );
+      hasError = true;
+    } else {
+      setNoiseLevelErr(null);
+    }
+    if (!stressLevel) {
+      setStressLevelErr("Please rate your current stress level");
+      hasError = true;
+    } else {
+      setStressLevelErr(null);
+    }
+
+    if (hasError) {
+      return;
+    }
+
     try {
-      const realTimeData = {
-        stressLevel,
-        noiseLevel,
-      };
+      const realTimeData = { stressLevel, noiseLevel };
       const userPreference = await RetrieveStudyPreference();
       const taskData = { complexity: task.complexity };
-      console.log("Real time data :", realTimeData);
-      console.log("study Preference data :", userPreference);
-      console.log("Task data :", taskData);
 
       const suggestionMethod = suggestStudyMethod(
         userPreference,
         realTimeData,
         taskData
       );
+
+      console.log(realTimeData);
+
       if (suggestionMethod) {
         setStudyMethod(suggestionMethod);
         setShowSuggestionForm(true);
@@ -36,16 +61,13 @@ const RealTimeDataForm = ({ onSubmit, onClose, task }) => {
         setError("No study method could be suggested. Please try again.");
       }
     } catch (error) {
-      setError(
-        "Error fetching user preferences or suggesting study method. Please try again."
-      );
+      setError("Error fetching user preferences. Please try again.");
     }
   };
 
-  const handleConfirmSuggestion = (selectedMethod) => {
+  const handleConfirmSuggestion = (selectedMethod, customTime) => {
     setShowSuggestionForm(false);
-    setStudyMethod(null);
-    onClose();
+    navigate("/clock", { state: { method: selectedMethod, customTime } });
   };
 
   return (
@@ -73,6 +95,9 @@ const RealTimeDataForm = ({ onSubmit, onClose, task }) => {
             <option value="normal">Medium</option>
             <option value="high">High</option>
           </select>
+          {stressLevelErr && (
+            <p className="text-red-500 text-xs">{stressLevelErr}</p>
+          )}
         </div>
         <div className="mb-2">
           <label className="block">Noise Level</label>
@@ -86,6 +111,9 @@ const RealTimeDataForm = ({ onSubmit, onClose, task }) => {
             <option value="moderate">Moderate</option>
             <option value="noisy">Noisy</option>
           </select>
+          {noiseLevelErr && (
+            <p className="text-red-500 text-xs">{noiseLevelErr}</p>
+          )}
         </div>
         <div className="flex justify-end">
           <button
