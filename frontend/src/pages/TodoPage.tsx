@@ -36,6 +36,10 @@ const TasksList: React.FC = () => {
   };
 
   const handleDeleteTask = async (taskId: number) => {
+    const isConfirmed = window.confirm("Are you done for this task?");
+    if (!isConfirmed) {
+      return;
+    }
     try {
       await DeleteTask(taskId);
       setSuccess("Task deleted successfully!");
@@ -88,11 +92,13 @@ const TasksList: React.FC = () => {
                   >
                     {task.title}
                   </h2>
+
                   <span className="justify-self-end">
                     <i
                       className="fa fa-ellipsis-v text-md"
                       onChange={() => handleCheckboxChange(task.id)}
                     ></i>
+                    <i className="gg-chevron-down cursor-pointer"></i>
                   </span>
                 </div>
                 <div>

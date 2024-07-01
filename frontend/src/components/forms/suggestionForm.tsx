@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 const SuggestionForm = ({ suggestedMethod, onConfirm, onClose }) => {
   const [selectedMethod, setSelectedMethod] = useState(suggestedMethod);
   const [customTime, setCustomTime] = useState({ minutes: 0 });
-  const [error, setError] = useState<string | null>();
+  const [error, setError] = useState<string | null>(null);
 
   const handleConfirm = () => {
     if (selectedMethod === "custom time" && customTime.minutes < 1) {

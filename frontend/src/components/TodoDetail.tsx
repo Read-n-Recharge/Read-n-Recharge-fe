@@ -50,11 +50,16 @@ const TaskDetails: React.FC<TaskDetailProps> = ({ task, onUpdate }) => {
   };
 
   const handleDeleteTask = async () => {
+    const isConfirmed = window.confirm(
+      "Are you sure you want to delete this task?"
+    );
+    if (!isConfirmed) {
+      return;
+    }
     try {
       await DeleteTask(task.id);
       onUpdate();
       setSuccess("Task deleted successfully!");
-      setTimeout(() => setSuccess(null), 3000);
     } catch (error) {
       setError("Error deleting task. Please try again.");
       console.error("Delete task error:", error);

@@ -57,36 +57,36 @@ const StudyMusic = () => {
   };
 
   return (
-    <div className="bg-blue-100 flex flex-col items-center">
-      <h1 className="p-5">Study Music</h1>
-      {error && <p className="text-red-500">{error}</p>}
-      <div className="mt-5">
+    <div className="bg-blue-100 p-5 rounded-lg shadow-lg m-12">
+      {error && <p className="text-red-500 text-center">{error}</p>}
+      <div className="flex flex-col items-center">
         <button
           onClick={displayAndPlayMusic}
-          className="p-2 bg-green-500 text-white rounded"
+          className="p-3 bg-blue-500 text-white font-bold rounded-lg shadow hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50"
         >
-          choose study music!
+          Choose Study Music!
         </button>
         {videos.length > 0 && (
-          <>
-            <h2>Select a Study Music Video</h2>
-            <select
-              onChange={handleVideoChange}
-              className="border p-2 rounded w-full mt-2"
-              defaultValue={selectedVideo || ""}
-            >
-              {videos.map((video) => (
-                <option key={video.id} value={video.url}>
-                  {video.title}
-                </option>
-              ))}
-            </select>
-          </>
+          <select
+            onChange={handleVideoChange}
+            className="border border-gray-300 p-2 rounded-lg w-full mt-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            defaultValue={selectedVideo || ""}
+          >
+            {videos.map((video) => (
+              <option key={video.id} value={video.url}>
+                {video.title}
+              </option>
+            ))}
+          </select>
         )}
       </div>
       {selectedVideo && (
         <div className="mt-5">
-          <iframe src={selectedVideo} className="rounded-xs"></iframe>
+          <iframe
+            src={selectedVideo}
+            className="w-full h-64 rounded-lg shadow-lg"
+            allowFullScreen
+          ></iframe>
         </div>
       )}
     </div>
