@@ -42,6 +42,7 @@ const SuggestionForm = ({ suggestedMethod, onConfirm, onClose }) => {
             onChange={(e) => setSelectedMethod(e.target.value)}
             className="border p-2 rounded w-full"
           >
+            <option value="">Select</option>
             <option value="90-minute focus sessions">
               90-minute focus sessions
             </option>
