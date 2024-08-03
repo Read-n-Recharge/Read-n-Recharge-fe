@@ -5,6 +5,7 @@ import TaskForm from "../components/forms/TodoForm";
 import { AnimatePresence } from "framer-motion";
 import TaskDetails from "../components/TodoDetail";
 import { useNavigate } from "react-router-dom";
+import { Navbar } from "../components/common/navbar";
 
 const TasksList: React.FC = () => {
   const [tasks, setTasks] = useState<Todo[]>([]);
@@ -32,10 +33,6 @@ const TasksList: React.FC = () => {
     setVisibleTaskId((prevTaskId) => (prevTaskId === taskId ? null : taskId));
   };
 
-  const handleClosePopup = () => {
-    setError(null);
-  };
-
   const handleDeleteTask = async (taskId: number) => {
     const isConfirmed = window.confirm("Are you done for this task?");
     if (!isConfirmed) {
@@ -60,6 +57,7 @@ const TasksList: React.FC = () => {
 
   return (
     <div>
+      <Navbar />
       <div className="flex items-center justify-center m-2 mt-10 ">
         <div className="border-b w-2/4">
           <h1 className="text-xl font-semibold border-b border-black pb-2">
