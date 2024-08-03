@@ -2,15 +2,16 @@ import React, { useEffect, useState } from "react";
 import { Todo } from "../type";
 import { RetrieveTask, DeleteTask, UpdateTask } from "../services/api";
 import TaskForm from "../components/forms/TodoForm";
-import PopupComponent from "../components/common/popupErr";
 import { AnimatePresence } from "framer-motion";
 import TaskDetails from "../components/TodoDetail";
+import { useNavigate } from "react-router-dom";
 
 const TasksList: React.FC = () => {
   const [tasks, setTasks] = useState<Todo[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [visibleTaskId, setVisibleTaskId] = useState<number | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   const fetchTask = async () => {
     try {
@@ -18,7 +19,7 @@ const TasksList: React.FC = () => {
       console.log("Tasks retrieved:", tasks);
       setTasks(tasks);
     } catch (error) {
-      setError("Error retrieving tasks");
+      navigate("/error");
     }
   };
 
@@ -112,7 +113,7 @@ const TasksList: React.FC = () => {
             </li>
           ))}
           <TaskForm onTaskCreated={fetchTask} />
-          {error && <PopupComponent error={error} onClose={handleClosePopup} />}
+          {/* {error && <PopupComponent error={error} onClose={handleClosePopup} />} */}
         </ul>
       </div>
     </div>
