@@ -4,9 +4,9 @@ export function Navbar() {
   return (
     <div className="grid justify-items-center">
       <div className="fixed bottom-5">
-        <ul className="flex items-center gap-8 bg-gray-100 rounded-xl p-3 w-fit">
-          <li className="hover:bg-blue-300 hover:rounded-xl p-2 w-24">
-            <a href="" className="flex flex-col items-center">
+        <ul className="flex items-center gap-8 bg-gray-100 rounded-full p-3 w-fit">
+          <li className="hover:bg-blue-300 hover:rounded-full p-2 w-24">
+            <a href="/todo-list" className="flex flex-col items-center">
               <span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -23,8 +23,8 @@ export function Navbar() {
               <span className="text-sm py-1">Study</span>
             </a>
           </li>
-          <li className="hover:bg-blue-300 hover:rounded-xl p-2 w-24">
-            <a href="" className="flex flex-col items-center">
+          <li className="hover:bg-blue-300 hover:rounded-full p-2 w-24">
+            <a href="/mood" className="flex flex-col items-center">
               <span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -41,8 +41,8 @@ export function Navbar() {
               <span className="text-sm py-1">Mood</span>
             </a>
           </li>
-          <li className="hover:bg-blue-300 hover:rounded-xl p-2 w-24">
-            <a href="" className="flex flex-col items-center">
+          <li className="hover:bg-blue-300 hover:rounded-full p-2 w-24">
+            <a href="#" className="flex flex-col items-center">
               <span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -59,8 +59,8 @@ export function Navbar() {
               <span className="text-sm py-1">Charging</span>
             </a>
           </li>
-          <li className="hover:bg-blue-300 hover:rounded-xl p-2 w-24">
-            <a href="" className="items-center flex flex-col">
+          <li className="hover:bg-blue-300 hover:rounded-full p-2 w-24">
+            <a href="#" className="items-center flex flex-col">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="18"
@@ -75,8 +75,8 @@ export function Navbar() {
               <span className="text-sm py-1">Home</span>
             </a>
           </li>
-          <li className="hover:bg-blue-300 hover:rounded-xl p-2 w-24">
-            <a href="" className="flex flex-col items-center">
+          <li className="hover:bg-blue-300 hover:rounded-full p-2 w-24">
+            <a href="#" className="flex flex-col items-center">
               <span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -93,8 +93,8 @@ export function Navbar() {
               <span className="text-sm py-1">GPS</span>
             </a>
           </li>
-          <li className="hover:bg-blue-300 hover:rounded-xl p-2 w-24">
-            <a href="" className="flex flex-col items-center">
+          <li className="hover:bg-blue-300 hover:rounded-full p-2 w-24">
+            <a href="#" className="flex flex-col items-center">
               <span className="">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -113,7 +113,7 @@ export function Navbar() {
               <span className="text-sm py-1">activity</span>
             </a>
           </li>
-          <li className="hover:bg-blue-300 hover:rounded-xl p-2 w-24">
+          <li className="hover:bg-blue-300 hover:rounded-full p-2 w-24">
             <a href="" className="flex flex-col items-center">
               <span className="">
                 <svg

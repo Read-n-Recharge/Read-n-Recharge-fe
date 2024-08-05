@@ -8,6 +8,8 @@ import TasksList from "./pages/TodoPage";
 import "../src/styles/App.css";
 import ClockPage from "./pages/ClockPage";
 import ErrorPage from "./pages/ErrorPage";
+import MoodTrack from "./pages/MoodTrack";
+import RecordMood from "./components/RecordMood";
 function App() {
   return (
     <Router>
@@ -21,6 +23,8 @@ function App() {
         <Route path="/todo-list" element={<TasksList />} />
         <Route path="/clock" element={<ClockPage />} />
         <Route path="/error" element={<ErrorPage />} />
+        <Route path="/mood" element={<MoodTrack />} />
+        <Route path="/record-mood/:date" element={<RecordMood />} />
       </Routes>
     </Router>
   );
