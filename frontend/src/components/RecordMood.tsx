@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import happyImg from "../assets/mood/Happy.png";
 import AngryImg from "../assets/mood/Angry.png";
@@ -11,6 +11,7 @@ import PlayfulImg from "../assets/mood/Playful.png";
 import ShockedImg from "../assets/mood/Shocked.png";
 import NeutralImag from "../assets/mood/Neutral.png";
 import { Navbar } from "./common/navbar";
+import { getUserIdFromToken, PostMoodRecord } from "../services/api";
 
 export default function RecordMood() {
   const { date } = useParams();
@@ -62,26 +63,40 @@ export default function RecordMood() {
 
   const [mood, setMood] = useState("");
   const [context, setContext] = useState("");
+  const [userId, setUserId] = useState<number | null>(null);
 
   const handleMoodClick = (moodValue) => {
     setMood(moodValue);
   };
+  useEffect(() => {
+    try {
+      const id = getUserIdFromToken();
+      setUserId(id);
+    } catch (error) {
+      console.error("Error retrieving user ID:", error.message);
+    }
+  }, []);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const moodData = {
-      user: "",
+      user: userId,
       timestamp: date,
       mood,
       context,
     };
     console.log("Mood Data:", moodData);
-
+    try {
+      await PostMoodRecord(moodData);
+      console.log("Mood recorded successfully");
+    } catch (error) {
+      console.error("Error recording mood:", error.message);
+    }
   };
 
   return (
     <div className="flex flex-col justify-center items-center mt-5">
-      <Navbar/>
+      <Navbar />
       <div className="text-3xl font-semibold">{date}</div>
       <div className="note-box p-5">
         <form onSubmit={handleSubmit}>

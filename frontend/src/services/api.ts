@@ -159,3 +159,39 @@ export const RetrieveStudyPreference = async () => {
     throw new Error(error);
   }
 };
+
+export const getUserIdFromToken = () => {
+  const token = localStorage.getItem("access_token");
+  if (!token) {
+    throw new Error("No access token found");
+  }
+  try {
+    const decoded: DecodedTokenData = jwtDecode(token);
+    const userId = decoded.user_id;
+    if (!userId) {
+      throw new Error("Invalid token");
+    }
+    return userId;
+  } catch (error) {
+    throw new Error("Failed to decode token: " + error.message);
+  }
+};
+
+export const PostMoodRecord = async (moodData) => {
+  const token = localStorage.getItem("access_token");
+  if (!token) {
+    throw new Error("No access token found");
+  }
+  const decoded: DecodedTokenData = jwtDecode(token);
+  const userId = decoded.user_id;
+  if (!userId) {
+    throw new Error("Invalid token");
+  }
+  try {
+    const response = await api.post(`moods/${userId}`, moodData);
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
