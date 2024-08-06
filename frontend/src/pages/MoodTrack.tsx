@@ -30,7 +30,7 @@ export default function MoodTrack() {
       setFlashMessage("That day is not coming yet!");
       setTimeout(() => setFlashMessage(""), 3000);
     } else {
-      navigate(`/record-mood/${day.format("Do MMM YY")}`);
+      navigate(`/record-mood/${day.format("dddd, Do MMM YY")}`);
     }
   };
 
@@ -40,9 +40,9 @@ export default function MoodTrack() {
       <div className="flex items-center justify-center pt-5">
         <div className="w-2/4">
           <h1 className="text-xl font-semibold border-b border-black pb-2">
-            Record your Mood !
+            Select the Date to Record Your Mood !
           </h1>
-          <div className="extenddate flex flex-row justify-between mt-5 bg-blue-100 p-3 rounded-full">
+          <div className="extenddate flex flex-row justify-between mt-5 bg-blue-300 p-3 rounded-full">
             <button onClick={prevMonth} className="">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -69,9 +69,9 @@ export default function MoodTrack() {
               </svg>
             </button>
           </div>
-          <div className="grid grid-cols-7 gap-2 pt-14">
+          <div className="grid grid-cols-7 gap-3 mt-5 bg-blue-50 rounded-2xl py-5">
             {moment.weekdaysShort().map((day, index) => (
-              <div key={index} className="text-center font-bold">
+              <div key={index} className="text-center font-bold text-blue">
                 {day}
               </div>
             ))}
@@ -90,8 +90,8 @@ export default function MoodTrack() {
                         !day.isSame(currentDate, "month")
                           ? ""
                           : isCurrentDate
-                          ? "bg-blue-100 rounded-full"
-                          : "text-black"
+                          ? "bg-blue-200 rounded-full"
+                          : ""
                       } ${
                         day.isSame(currentDate, "month")
                           ? "hover:bg-gray-200 hover:rounded-full py-6"
@@ -110,7 +110,7 @@ export default function MoodTrack() {
       <AnimatePresence>
         {flashMessage && (
           <motion.div
-            className="fixed top-0 left-0 right-0 bg-red-400 text-white text-center py-2"
+            className="fixed top-0 left-0 right-0 bg-red-400 text-white text-center py-2 "
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 50 }}
