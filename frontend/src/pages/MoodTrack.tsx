@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Navbar } from "../components/common/navbar";
+import MoodHistory from "../components/MoodHistory";
 import moment from "moment";
 import { extendMoment } from "moment-range";
 import { useNavigate } from "react-router-dom";
@@ -69,7 +70,7 @@ export default function MoodTrack() {
               </svg>
             </button>
           </div>
-          <div className="grid grid-cols-7 gap-3 mt-5 bg-blue-50 rounded-2xl py-5">
+          <div className="grid grid-cols-7 gap-3 mt-5 py-5">
             {moment.weekdaysShort().map((day, index) => (
               <div key={index} className="text-center font-bold text-blue">
                 {day}

@@ -12,6 +12,8 @@ import ShockedImg from "../assets/mood/Shocked.png";
 import NeutralImag from "../assets/mood/Neutral.png";
 import { Navbar } from "./common/navbar";
 import { getUserIdFromToken, PostMoodRecord } from "../services/api";
+import MoodHistory from "../components/MoodHistory";
+import AnimatedModal from "./common/AnimatedModal";
 
 export default function RecordMood() {
   const { date } = useParams();
@@ -64,6 +66,8 @@ export default function RecordMood() {
   const [mood, setMood] = useState("");
   const [context, setContext] = useState("");
   const [userId, setUserId] = useState<number | null>(null);
+  const [newRecordAdded, setNewRecordAdded] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleMoodClick = (moodValue) => {
     setMood(moodValue);
@@ -89,6 +93,11 @@ export default function RecordMood() {
     try {
       await PostMoodRecord(moodData);
       console.log("Mood recorded successfully");
+      setNewRecordAdded(!newRecordAdded);
+      setIsModalOpen(true);
+
+      setMood("");
+      setContext("");
     } catch (error) {
       console.error("Error recording mood:", error.message);
     }
@@ -155,6 +164,9 @@ export default function RecordMood() {
           </div>
         </form>
       </div>
+      <AnimatedModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+        <MoodHistory date={date!} newRecordAdded={newRecordAdded} />
+      </AnimatedModal>
     </div>
   );
 }

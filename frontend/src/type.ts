@@ -24,7 +24,7 @@ export interface DecodedTokenData {
   exp: number;
   iat: number;
 }
-export type Todo = {
+export interface Todo {
   id: number;
   title: string;
   details: string;
@@ -32,10 +32,23 @@ export type Todo = {
   complexity: string;
   complete: boolean;
   user: number;
-};
+}
 
 export interface Video {
   id: string;
   title: string;
   url: string;
+}
+
+export interface MoodRecord {
+  id: number;
+  user: number;
+  timestamp: string;
+  mood: string;
+  context: string;
+}
+
+export interface MoodHistoryProps {
+  date: string;
+  newRecordAdded: boolean;
 }

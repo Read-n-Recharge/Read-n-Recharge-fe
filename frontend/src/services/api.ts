@@ -9,6 +9,28 @@ import {
 } from "../type";
 import { jwtDecode } from "jwt-decode";
 
+const getToken = (): string => {
+  const token = localStorage.getItem("access_token");
+  if (!token) throw new Error("No access token found");
+  return token;
+};
+
+const decodeToken = (): DecodedTokenData => {
+  try {
+    const token = getToken();
+    return jwtDecode<DecodedTokenData>(token);
+  } catch (error) {
+    throw new Error("Failed to decode token: " + error.message);
+  }
+};
+
+export const getUserIdFromToken = (): number => {
+  const decoded = decodeToken();
+  const userId = decoded.user_id;
+  if (!userId) throw new Error("Invalid token");
+  return userId;
+};
+
 export const login = async ({ email, password }: AuthCredentials) => {
   try {
     const response = await api.post("/auth/token/", { email, password });
@@ -64,15 +86,7 @@ export const submitStudyPreference = async (
 };
 
 export const getUserProfile = async () => {
-  const token = localStorage.getItem("access_token");
-  if (!token) {
-    throw new Error("No access token found");
-  }
-  const decoded: DecodedTokenData = jwtDecode(token);
-  const userId = decoded.user_id;
-  if (!userId) {
-    throw new Error("Invalid token");
-  }
+  const userId = getUserIdFromToken();
   try {
     const response = await api.get(`auth/user/${userId}`);
     console.log(response.data);
@@ -83,10 +97,6 @@ export const getUserProfile = async () => {
 };
 
 export const RetrieveTask = async (): Promise<Todo[]> => {
-  const token = localStorage.getItem("access_token");
-  if (!token) {
-    throw new Error("No access token found");
-  }
   try {
     const response = await api.get(`task/tasks`);
     // console.log(response.data);
@@ -97,10 +107,6 @@ export const RetrieveTask = async (): Promise<Todo[]> => {
 };
 
 export const CreateTask = async (task: Partial<Todo>): Promise<Todo[]> => {
-  const token = localStorage.getItem("access_token");
-  if (!token) {
-    throw new Error("No access token found");
-  }
   try {
     const response = await api.post(`/task/tasks/create`, task);
     console.log(response.data);
@@ -114,10 +120,6 @@ export const UpdateTask = async (
   user: number,
   updatedTask: Partial<Todo>
 ): Promise<Todo[]> => {
-  const token = localStorage.getItem("access_token");
-  if (!token) {
-    throw new Error("No access token found");
-  }
   try {
     const response = await api.put(`task/tasks/update/${user}`, updatedTask);
     console.log(response.data);
@@ -128,10 +130,6 @@ export const UpdateTask = async (
 };
 
 export const DeleteTask = async (id: number): Promise<Todo[]> => {
-  const token = localStorage.getItem("access_token");
-  if (!token) {
-    throw new Error("No access token found");
-  }
   try {
     const response = await api.delete(`task/tasks/delete/${id}`);
     console.log(response.data);
@@ -142,15 +140,7 @@ export const DeleteTask = async (id: number): Promise<Todo[]> => {
 };
 
 export const RetrieveStudyPreference = async () => {
-  const token = localStorage.getItem("access_token");
-  if (!token) {
-    throw new Error("No access token found");
-  }
-  const decoded: DecodedTokenData = jwtDecode(token);
-  const userId = decoded.user_id;
-  if (!userId) {
-    throw new Error("Invalid token");
-  }
+  const userId = getUserIdFromToken();
   try {
     const response = await api.get(`auth/form/${userId}`);
     console.log(response.data);
@@ -160,35 +150,20 @@ export const RetrieveStudyPreference = async () => {
   }
 };
 
-export const getUserIdFromToken = () => {
-  const token = localStorage.getItem("access_token");
-  if (!token) {
-    throw new Error("No access token found");
-  }
+export const PostMoodRecord = async (moodData) => {
+  const userId = getUserIdFromToken();
   try {
-    const decoded: DecodedTokenData = jwtDecode(token);
-    const userId = decoded.user_id;
-    if (!userId) {
-      throw new Error("Invalid token");
-    }
-    return userId;
+    const response = await api.post(`moods/${userId}`, moodData);
+    console.log(response.data);
+    return response.data;
   } catch (error) {
-    throw new Error("Failed to decode token: " + error.message);
+    throw new Error(error);
   }
 };
 
-export const PostMoodRecord = async (moodData) => {
-  const token = localStorage.getItem("access_token");
-  if (!token) {
-    throw new Error("No access token found");
-  }
-  const decoded: DecodedTokenData = jwtDecode(token);
-  const userId = decoded.user_id;
-  if (!userId) {
-    throw new Error("Invalid token");
-  }
+export const RetrieveMoodRecords = async () => {
   try {
-    const response = await api.post(`moods/${userId}`, moodData);
+    const response = await api.get(`moods/`);
     console.log(response.data);
     return response.data;
   } catch (error) {
