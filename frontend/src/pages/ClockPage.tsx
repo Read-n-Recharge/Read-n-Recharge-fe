@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Clock } from "../components/clock";
 import StudyMusic from "../components/studyMusic";
+import { Navbar } from "../components/common/navbar";
 const ClockPage = () => {
   const location = useLocation();
   const { method, customTime } = location.state;
@@ -10,15 +11,21 @@ const ClockPage = () => {
   console.log("ClockPage - CustomTime:", customTime);
 
   return (
-    <div className="flex flex-col items-center justify-center">
-      <h1 className="text-4xl font-bold mb-4 mt-10 border-b-2 border-black w-3/4">
-        Study Timer
+    <div className="flex flex-col items-center pt-10 bg-blue-50 h-screen relative">
+      <h1 className="text-5xl font-bold text-center text-blue-900">
+        ONE STEP AT A TIME, YOU WILL GET THERE
       </h1>
-      <div className="flex flex-col items-center">
-        <Clock method={method} customTime={customTime} />
+      <h1 className=" p-1 text-2xl ">{method}</h1>
+      <div className="flex flex-col items-center h-full border-blue-100 border-t-2 gap-2">
+        <div className="h-full items-center flex">
+          <Clock method={method} customTime={customTime} />
+        </div>
       </div>
-
-      <StudyMusic />
+     
+      <Navbar />
+      <div className="absolute left-1 bottom-56">
+    <StudyMusic />
+  </div>
     </div>
   );
 };

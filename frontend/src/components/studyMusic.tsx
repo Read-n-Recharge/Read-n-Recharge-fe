@@ -57,19 +57,19 @@ const StudyMusic = () => {
   };
 
   return (
-    <div className="bg-blue-100 p-5 rounded-lg shadow-lg m-12">
+    <div className="bg-blue-100 p-2 rounded-lg shadow-lg flex flex-col items-center">
       {error && <p className="text-red-500 text-center">{error}</p>}
-      <div className="flex flex-col items-center">
+      <div className="flex items-center">
         <button
           onClick={displayAndPlayMusic}
-          className="p-3 bg-blue-500 text-white font-bold rounded-lg shadow hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50"
+          className="p-3"
         >
-          Choose Study Music!
+          Choose Music!
         </button>
         {videos.length > 0 && (
           <select
             onChange={handleVideoChange}
-            className="border border-gray-300 p-2 rounded-lg w-full mt-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="border border-gray-300 p-3 w-32 rounded-lg mt-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
             defaultValue={selectedVideo || ""}
           >
             {videos.map((video) => (
@@ -81,10 +81,10 @@ const StudyMusic = () => {
         )}
       </div>
       {selectedVideo && (
-        <div className="mt-5">
+        <div className="p-5">
           <iframe
             src={selectedVideo}
-            className="w-full h-64 rounded-lg shadow-lg"
+            className="rounded-lg shadow-lg"
             allowFullScreen
           ></iframe>
         </div>

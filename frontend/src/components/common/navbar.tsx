@@ -5,7 +5,7 @@ export function Navbar() {
     <div className="grid justify-items-center">
       <div className="fixed bottom-5">
         <ul className="flex items-center gap-8 bg-gray-100 rounded-full p-3 w-fit">
-          <li className="hover:bg-blue-300 hover:rounded-full p-2 w-24">
+          <li className="hover:bg-blue-300 hover:rounded-full p-2 w-24 cursor-pointer">
             <a href="/todo-list" className="flex flex-col items-center">
               <span>
                 <svg
