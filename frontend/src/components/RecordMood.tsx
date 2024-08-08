@@ -1,65 +1,56 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import happyImg from "../assets/mood/Happy.png";
-import AngryImg from "../assets/mood/Angry.png";
-import SadImg from "../assets/mood/Sad.png";
-import AnxietyImg from "../assets/mood/Anxiety.png";
-import contentmentImg from "../assets/mood/contentment.png";
-import DisgustedImg from "../assets/mood/Disgusted.png";
-import LoveImg from "../assets/mood/Love.png";
-import PlayfulImg from "../assets/mood/Playful.png";
-import ShockedImg from "../assets/mood/Shocked.png";
-import NeutralImag from "../assets/mood/Neutral.png";
 import { Navbar } from "./common/navbar";
 import { getUserIdFromToken, PostMoodRecord } from "../services/api";
 import MoodHistory from "../components/MoodHistory";
 import AnimatedModal from "./common/AnimatedModal";
+import { moodImages } from "./utils/moodImages";
 
 export default function RecordMood() {
   const { date } = useParams();
 
   const MOOD_CHOICES = [
-    { value: "happy", label: "Happy", imageUrl: happyImg },
-    { value: "sad", label: "Sad", imageUrl: SadImg },
+    { value: "happy", label: "Happy", imageUrl: moodImages.happy },
+    { value: "sad", label: "Sad", imageUrl: moodImages.sad },
     {
       value: "angry",
       label: "Angry",
-      imageUrl: AngryImg,
+      imageUrl: moodImages.angry,
     },
     {
       value: "anxious",
       label: "Anxious",
-      imageUrl: AnxietyImg,
+      imageUrl: moodImages.anxious,
     },
     {
       value: "playful",
       label: "Playful",
-      imageUrl: PlayfulImg,
+      imageUrl: moodImages.playful,
     },
     {
       value: "contentment",
       label: "Contentment",
-      imageUrl: contentmentImg,
+      imageUrl: moodImages.contentment,
     },
     {
       value: "disgusted",
       label: "Disgusted",
-      imageUrl: DisgustedImg,
+      imageUrl: moodImages.disgusted,
     },
     {
       value: "love",
       label: "Love",
-      imageUrl: LoveImg,
+      imageUrl: moodImages.love,
     },
     {
       value: "shocked",
       label: "Shocked",
-      imageUrl: ShockedImg,
+      imageUrl: moodImages.shocked,
     },
     {
-      value: "Neutral",
+      value: "neutral",
       label: "Neutral",
-      imageUrl: NeutralImag,
+      imageUrl: moodImages.neutral,
     },
   ];
 

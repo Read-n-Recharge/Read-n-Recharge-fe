@@ -10,6 +10,7 @@ import ClockPage from "./pages/ClockPage";
 import ErrorPage from "./pages/ErrorPage";
 import MoodTrack from "./pages/MoodTrack";
 import RecordMood from "./components/RecordMood";
+import Activity from "./pages/activity";
 function App() {
   return (
     <Router>
@@ -25,6 +26,7 @@ function App() {
         <Route path="/error" element={<ErrorPage />} />
         <Route path="/mood" element={<MoodTrack />} />
         <Route path="/record-mood/:date" element={<RecordMood />} />
+        <Route path="/activity" element={<Activity />} />
       </Routes>
     </Router>
   );

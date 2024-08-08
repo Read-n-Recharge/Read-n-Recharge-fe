@@ -94,7 +94,7 @@ export function Navbar() {
             </a>
           </li>
           <li className="hover:bg-blue-300 hover:rounded-full p-2 w-24">
-            <a href="#" className="flex flex-col items-center">
+            <a href="/activity" className="flex flex-col items-center">
               <span className="">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

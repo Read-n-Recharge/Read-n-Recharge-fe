@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Navbar } from "../components/common/navbar";
-import MoodHistory from "../components/MoodHistory";
 import moment from "moment";
 import { extendMoment } from "moment-range";
 import { useNavigate } from "react-router-dom";
