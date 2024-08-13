@@ -57,7 +57,7 @@ const StudyMusic = () => {
   };
 
   return (
-    <div className="bg-blue-100 p-2 rounded-lg shadow-lg flex flex-col items-center">
+    <div className="bg-blue-100 bg-opacity-30 p-2 rounded-lg shadow-lg flex flex-col items-center">
       {error && <p className="text-red-500 text-center">{error}</p>}
       <div className="flex items-center">
         <button

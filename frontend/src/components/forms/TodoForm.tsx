@@ -58,7 +58,7 @@ const TaskForm: React.FC<TaskFormProps> = ({ onTaskCreated }) => {
   };
 
   return (
-    <div className="w-3/4 border border-black p-4 rounded-lg m-2">
+    <div className="w-3/4 border border-black p-4 rounded-lg m-2 bg-white bg-opacity-40">
       <AnimatePresence>
         {isAdding && (
           <motion.div

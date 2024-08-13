@@ -50,12 +50,11 @@ export function Clock({ method, customTime }) {
   return (
     <div className="w-full flex items-center justify-center flex-col">
       <div className="clock flex text-9xl">
-        <div className="bg-white p-3 rounded-xl">
+        <div className="bg-white bg-opacity-25 p-3 rounded-xl">
           {String(time.minutes).padStart(2, "0")}
- 
         </div>
         :{" "}
-        <div className="bg-white p-3 rounded-xl">
+        <div className="bg-white p-3 bg-opacity-25 rounded-xl">
           {String(time.seconds).padStart(2, "0")}
         </div>
       </div>
@@ -76,8 +75,6 @@ export function Clock({ method, customTime }) {
           </button>
         )}
       </div>
-     
-     
     </div>
   );
 }

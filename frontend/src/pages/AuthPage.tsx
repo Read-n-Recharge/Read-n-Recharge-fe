@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Header } from "../components/common/Header";
-import bgImage from "../assets/bg-login.png";
+import bgImage from "../assets/bg-try.png";
 import LoginPage from "../components/Login";
 import RegisterForm from "../components/Register";
 
@@ -25,7 +25,7 @@ export function AuthPage({ isLogin: initialIsLogin }) {
     >
       <Header />
       <section>
-        <div className="flex flex-col items-center justify-center">
+        <div className="flex flex-col mt-10 ml-16 justify-center">
           <div className="bg-white rounded-3xl sm:max-w-lg p-2 bg-opacity-80 border-2 m-8 px-5 w-full">
             <AnimatePresence mode="wait">
               {isLogin ? (
@@ -36,6 +36,7 @@ export function AuthPage({ isLogin: initialIsLogin }) {
                   exit="exit"
                   variants={formVariants}
                 >
+
                   <LoginPage />
                 </motion.div>
               ) : (

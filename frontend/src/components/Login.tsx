@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { AuthCredentials } from "../type";
 import { AnimatePresence } from "framer-motion";
 import PopupComponent from "./common/popupErr";
-
+import { FacePass } from "facepass-beta";
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -88,11 +88,14 @@ const LoginPage: React.FC = () => {
         </div>
         <button
           type="submit"
-          className="w-full bg-slate-900 text-white p-3 rounded-2xl"
+          className="w-full bg-blue-950 text-white p-3 rounded-2xl hover:bg-blue-800"
           disabled={isSubmitting}
         >
           Sign in
         </button>
+        <div className="w-full bg-black rounded-2xl flex items-center justify-center">
+          <FacePass project-id="4" developerPlatformUrl="localhost:5173" />
+        </div>
       </form>
 
       <AnimatePresence>

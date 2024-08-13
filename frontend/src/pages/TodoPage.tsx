@@ -6,6 +6,7 @@ import { AnimatePresence } from "framer-motion";
 import TaskDetails from "../components/TodoDetail";
 import { useNavigate } from "react-router-dom";
 import { Navbar } from "../components/common/navbar";
+import bgImg from "../assets/bg-normal.png";
 
 const TasksList: React.FC = () => {
   const [tasks, setTasks] = useState<Todo[]>([]);
@@ -56,63 +57,69 @@ const TasksList: React.FC = () => {
   };
 
   return (
-    <div>
-      <Navbar />
-      <div className="flex items-center justify-center m-2 mt-10 ">
-        <div className="border-b w-2/4">
-          <h1 className="text-xl font-semibold border-b border-black pb-2">
-            Task To-do
-          </h1>
-          <i className="ri-add-circle-line"></i>
+    <div className="min-h-screen relative pb-32" >
+      <div
+        className="absolute top-0 left-0 w-full h-full bg-cover bg-center"
+        style={{ backgroundImage: `url(${bgImg})`}}
+      />
+      <div className="relative z-10">
+        <Navbar />
+        <div className="flex items-center justify-center m-2 mt-10 ">
+          <div className="border-b w-2/4">
+            <h1 className="text-xl font-semibold border-b border-black pb-2">
+              Task To-do
+            </h1>
+            <i className="ri-add-circle-line"></i>
+          </div>
         </div>
-      </div>
-      <div className="flex items-center justify-center m-2 mt-2">
-        <ul className="w-2/3 flex flex-col items-center">
-          {tasks.map((task) => (
-            <li
-              key={task.id}
-              className="border solid rounded-md w-3/4 cursor-pointer border-black p-3 m-2"
-            >
-              <div className="header pl-5 pt-1">
-                <div
-                  className="tiltle grid grid-cols-[auto_auto_1fr] items-center gap-2"
-                  onClick={() => handleTitleClick(task.id)}
-                >
-                  <input
-                    type="checkbox"
-                    checked={task.complete}
-                    onChange={() => handleCheckboxChange(task.id)}
-                    className="mx-2 cursor-pointer transform scale-150"
-                  />
-                  <h2
-                    className={`cursor-pointer py-1 px-1 ${
-                      task.complete ? "line-through" : ""
-                    }`}
+        <div className="flex items-center justify-center m-2 mt-2">
+          <ul className="w-2/3 flex flex-col items-center">
+            {tasks.map((task) => (
+              <li
+                key={task.id}
+                className="border solid rounded-md w-3/4 cursor-pointer border-black p-3 m-2 bg-white bg-opacity-5"
+              >
+                <div className="header pl-5 pt-1">
+                  <div
+                    className="tiltle grid grid-cols-[auto_auto_1fr] items-center gap-2 "
+                    onClick={() => handleTitleClick(task.id)}
                   >
-                    {task.title}
-                  </h2>
-
-                  <span className="justify-self-end">
-                    <i
-                      className="fa fa-ellipsis-v text-md"
+                    <input
+                      type="checkbox"
+                      checked={task.complete}
                       onChange={() => handleCheckboxChange(task.id)}
-                    ></i>
-                    <i className="gg-chevron-down cursor-pointer"></i>
-                  </span>
+                      className="mx-2 cursor-pointer transform scale-150"
+                    />
+                    <h2
+                      className={`cursor-pointer py-1 px-1 ${
+                        task.complete ? "line-through" : ""
+                      }`}
+                    >
+                      {task.title}
+                    </h2>
+
+                    <span className="justify-self-end">
+                      <i
+                        className="fa fa-ellipsis-v text-md"
+                        onChange={() => handleCheckboxChange(task.id)}
+                      ></i>
+                      <i className="gg-chevron-down cursor-pointer"></i>
+                    </span>
+                  </div>
+                  <div>
+                    <AnimatePresence>
+                      {visibleTaskId === task.id && (
+                        <TaskDetails task={task} onUpdate={handleUpdate} />
+                      )}
+                    </AnimatePresence>
+                  </div>
                 </div>
-                <div>
-                  <AnimatePresence>
-                    {visibleTaskId === task.id && (
-                      <TaskDetails task={task} onUpdate={handleUpdate} />
-                    )}
-                  </AnimatePresence>
-                </div>
-              </div>
-            </li>
-          ))}
-          <TaskForm onTaskCreated={fetchTask} />
-          {/* {error && <PopupComponent error={error} onClose={handleClosePopup} />} */}
-        </ul>
+              </li>
+            ))}
+            <TaskForm onTaskCreated={fetchTask} />
+            {/* {error && <PopupComponent error={error} onClose={handleClosePopup} />} */}
+          </ul>
+        </div>
       </div>
     </div>
   );

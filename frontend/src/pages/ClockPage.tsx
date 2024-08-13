@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import { Clock } from "../components/clock";
 import StudyMusic from "../components/studyMusic";
 import { Navbar } from "../components/common/navbar";
+import bgImage from "../assets/bg-todo.png";
 const ClockPage = () => {
   const location = useLocation();
   const { method, customTime } = location.state;
@@ -11,7 +12,10 @@ const ClockPage = () => {
   console.log("ClockPage - CustomTime:", customTime);
 
   return (
-    <div className="flex flex-col items-center pt-10 bg-blue-50 h-screen relative">
+    <div
+      className="flex flex-col items-center pt-10 h-screen min-h-screen bg-cover bg-center relative"
+      style={{ backgroundImage: `url(${bgImage})` }}
+    >
       <h1 className="text-5xl font-bold text-center text-blue-900">
         ONE STEP AT A TIME, YOU WILL GET THERE
       </h1>
@@ -21,11 +25,11 @@ const ClockPage = () => {
           <Clock method={method} customTime={customTime} />
         </div>
       </div>
-     
+
       <Navbar />
-      <div className="absolute left-1 bottom-56">
-    <StudyMusic />
-  </div>
+      <div className="absolute left-1 top-56">
+        <StudyMusic />
+      </div>
     </div>
   );
 };

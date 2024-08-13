@@ -202,11 +202,11 @@ const RegisterForm: React.FC = () => {
           {confirmPasswordError && (
             <p className="text-red-500 text-xs mt-2">{confirmPasswordError}</p>
           )}
-        </div>
+        </div> 
 
         <button
           type="submit"
-          className="w-full text-white bg-black hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-3 text-center"
+          className="w-full text-white bg-blue-950 hover:bg-blue-800 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-3 text-center"
         >
           Create an account
         </button>
