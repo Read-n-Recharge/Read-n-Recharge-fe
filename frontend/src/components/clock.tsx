@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import "../styles/App.css";
-import StudyMusic from "./studyMusic";
+
 export function Clock({ method, customTime }) {
   const [time, setTime] = useState({ minutes: 0, seconds: 0 });
   const [isRunning, setIsRunning] = useState(false);
@@ -48,13 +48,13 @@ export function Clock({ method, customTime }) {
   const handleStopTime = () => setIsRunning(false);
 
   return (
-    <div className="w-full flex items-center justify-center flex-col">
-      <div className="clock flex text-9xl">
-        <div className="bg-white bg-opacity-25 p-3 rounded-xl">
+    <div className="w-full flex items-center justify-center flex-col -mt-32">
+      <div className="clock flex" style={{ fontSize: "150px" }}>
+        <div className="bg-white bg-opacity-25 p-5 rounded-xl ">
           {String(time.minutes).padStart(2, "0")}
         </div>
         :{" "}
-        <div className="bg-white p-3 bg-opacity-25 rounded-xl">
+        <div className="bg-white p-5 bg-opacity-25 rounded-xl">
           {String(time.seconds).padStart(2, "0")}
         </div>
       </div>
@@ -62,14 +62,14 @@ export function Clock({ method, customTime }) {
         {isRunning ? (
           <button
             onClick={handleStopTime}
-            className="bg-red-300 text-white font-bold rounded hover:bg-red-400 p-3 w-48"
+            className="bg-red-400 text-white font-bold rounded hover:bg-red-300 p-3 w-48"
           >
             stop
           </button>
         ) : (
           <button
             onClick={handleStartTime}
-            className="bg-blue-300 text-white font-bold rounded hover:bg-blue-400 p-3 w-48"
+            className="bg-blue-500 text-white font-bold rounded hover:bg-blue-300 p-3 w-48"
           >
             start
           </button>

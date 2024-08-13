@@ -170,3 +170,16 @@ export const RetrieveMoodRecords = async () => {
     throw new Error(error);
   }
 };
+
+export const logout = async () => {
+  try {
+    const refreshToken = localStorage.getItem("refresh_token");
+    await api.post("/auth/logout", { refresh_token: refreshToken });
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("refresh_token");
+    delete api.defaults.headers.common["Authorization"];
+    window.location.href = "/";
+  } catch (error) {
+    console.error("Logout failed:", error);
+  }
+};

@@ -6,13 +6,14 @@ import { AnimatePresence } from "framer-motion";
 import TaskDetails from "../components/TodoDetail";
 import { useNavigate } from "react-router-dom";
 import { Navbar } from "../components/common/navbar";
-import bgImg from "../assets/bg-normal.png";
+import bgImg from "../assets/bg-todo.png";
 
 const TasksList: React.FC = () => {
   const [tasks, setTasks] = useState<Todo[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [visibleTaskId, setVisibleTaskId] = useState<number | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
+
   const navigate = useNavigate();
 
   const fetchTask = async () => {
@@ -57,14 +58,15 @@ const TasksList: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen relative pb-32" >
+    <div className="min-h-screen relative pb-16">
       <div
-        className="absolute top-0 left-0 w-full h-full bg-cover bg-center"
-        style={{ backgroundImage: `url(${bgImg})`}}
+        className="absolute top-0 left-0 w-full h-full bg-cover bg-center filter blur-xs"
+        style={{ backgroundImage: `url(${bgImg})` }}
       />
+      <Navbar />
+
       <div className="relative z-10">
-        <Navbar />
-        <div className="flex items-center justify-center m-2 mt-10 ">
+        <div className="flex items-center justify-center mt-7">
           <div className="border-b w-2/4">
             <h1 className="text-xl font-semibold border-b border-black pb-2">
               Task To-do
