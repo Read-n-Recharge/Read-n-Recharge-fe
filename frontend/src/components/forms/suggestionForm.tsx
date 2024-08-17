@@ -29,7 +29,7 @@ const SuggestionForm = ({ suggestedMethod, onConfirm, onClose }) => {
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -50 }}
         transition={{ duration: 0.5 }}
-        className="bg-white p-6 rounded shadow-lg w-2/6"
+        className="bg-white p-6 rounded-lg shadow-lg w-2/6"
       >
         <h2 className="text-xl text-center mb-4">Choose Your Study Method</h2>
         <div className="mb-4">

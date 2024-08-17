@@ -1,12 +1,116 @@
 import React from "react";
 import { logout } from "../../services/api";
+import { Link, NavLink } from "react-router-dom";
+
 export function Navbar() {
   return (
-    <div className="grid justify-items-center">
-      <div className="fixed bottom-3">
-        <ul className="flex items-center lg:gap-8 bg-gray-200 bg-opacity-35 rounded-full p-2 w-fit">
-          <li className="hover:bg-blue-100 hover:rounded-full p-1 w-24 cursor-pointer">
-            <a href="/todo-list" className="flex flex-col items-center">
+    <div className=" justify-between md:p-5 w-full hidden md:flex">
+      <div className="rightside flex gap-3 text-white">
+        <div className="logo bg-white bg-opacity-20 rounded-full border border-white py-2 px-2">
+          <NavLink
+            to="#"
+            className={({ isActive }) =>
+              isActive ? "border-b-4 border-white" : ""
+            }
+          >
+            <p>Read'n'Recharge</p>
+          </NavLink>
+        </div>
+        <div className="to-do py-2 px-3 font-medium">
+          <NavLink
+            to="/todo-list"
+            className={({ isActive }) =>
+              isActive ? "border-b border-white pb-2" : ""
+            }
+          >
+            Study Plan
+          </NavLink>
+        </div>
+        <div className="mood py-2 px-3 font-medium">
+          <NavLink
+            to="/mood"
+            className={({ isActive }) =>
+              isActive ? "border-b border-white pb-2" : ""
+            }
+          >
+            Mood Record
+          </NavLink>
+        </div>
+        <div className="gps py-2 px-3 font-medium">
+          <NavLink
+            to="/gps"
+            className={({ isActive }) =>
+              isActive ? "border-b border-white pb-2" : ""
+            }
+          >
+            <p>GPS</p>
+          </NavLink>
+        </div>
+        <div className="activity py-2 px-3 font-medium">
+          <NavLink
+            to="#"
+            className={({ isActive }) =>
+              isActive ? "border-b border-white pb-2" : ""
+            }
+          >
+            <p>Activity</p>
+          </NavLink>
+        </div>
+      </div>
+      <div className="leftside flex gap-5">
+        <div className="profile">
+          <NavLink
+            to="#"
+            className="flex items-center justify-center gap-2 bg-white bg-opacity-20 border border-white rounded-full w-28 py-2 text-white "
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              className="bi bi-person"
+              viewBox="0 0 16 16"
+            >
+              <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z" />
+            </svg>
+            <p>Profile</p>
+          </NavLink>
+        </div>
+        <div className="logout">
+          <div>
+            <span
+              onClick={logout}
+              className="flex items-center justify-center gap-2 bg-white bg-opacity-20 border border-white rounded-full w-28 py-2 text-white cursor-pointer"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="18"
+                fill="currentColor"
+                className="bi bi-box-arrow-right"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z"
+                />
+                <path
+                  fillRule="evenodd"
+                  d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"
+                />
+              </svg>
+
+              <p>Logout</p>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+{
+  /* <a href="/todo-list" className="flex flex-col items-center">
               <span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -22,8 +126,7 @@ export function Navbar() {
               </span>
               <span className="text-sm py-1">Study</span>
             </a>
-          </li>
-          <li className="hover:bg-blue-100 hover:rounded-full p-2 w-24">
+         
             <a href="/mood" className="flex flex-col items-center">
               <span>
                 <svg
@@ -40,8 +143,7 @@ export function Navbar() {
               </span>
               <span className="text-sm py-1">Mood</span>
             </a>
-          </li>
-          <li className="hover:bg-blue-100 hover:rounded-full p-2 w-24">
+         
             <a href="#" className="flex flex-col items-center">
               <span>
                 <svg
@@ -58,8 +160,7 @@ export function Navbar() {
               </span>
               <span className="text-sm py-1">Charging</span>
             </a>
-          </li>
-          <li className="hover:bg-blue-100 hover:rounded-full p-2 w-24">
+          
             <a href="#" className="items-center flex flex-col">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -75,8 +176,7 @@ export function Navbar() {
               <span className="text-sm py-1">Home</span>
             </a>
           </li>
-          <li className="hover:bg-blue-100 hover:rounded-full p-2 w-24">
-            <a href="#" className="flex flex-col items-center">
+         
               <span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -92,8 +192,7 @@ export function Navbar() {
               </span>
               <span className="text-sm py-1">GPS</span>
             </a>
-          </li>
-          <li className="hover:bg-blue-100 hover:rounded-full p-2 w-24">
+         
             <a href="/activity" className="flex flex-col items-center">
               <span className="">
                 <svg
@@ -112,8 +211,7 @@ export function Navbar() {
               </span>
               <span className="text-sm py-1">activity</span>
             </a>
-          </li>
-          <li className="hover:bg-blue-100 hover:rounded-full p-2 w-24">
+       
             <a href="" className="flex flex-col items-center">
               <span className="">
                 <svg
@@ -129,8 +227,7 @@ export function Navbar() {
               </span>
               <span className="text-sm py-1">point</span>
             </a>
-          </li>
-          <li className="hover:text-blue-500 p-2 w-24 ">
+        
             <button onClick={logout} className="flex flex-col items-center">
               <div>
                 <svg
@@ -152,10 +249,5 @@ export function Navbar() {
                 </svg>
               </div>
               <div className="text-sm py-1">Logout</div>
-            </button>
-          </li>
-        </ul>
-      </div>
-    </div>
-  );
+            </button> */
 }

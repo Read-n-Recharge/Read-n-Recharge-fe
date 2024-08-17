@@ -183,3 +183,12 @@ export const logout = async () => {
     console.error("Logout failed:", error);
   }
 };
+
+export const points_record = async () => {
+  try {
+    const response = await api.post("/points/points_record");
+    console.log(response.data);
+  } catch (error) {
+    throw new Error(error);
+  }
+};

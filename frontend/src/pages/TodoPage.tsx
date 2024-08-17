@@ -58,13 +58,11 @@ const TasksList: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen relative pb-16">
-      <div
-        className="absolute top-0 left-0 w-full h-full bg-cover bg-center filter blur-xs"
-        style={{ backgroundImage: `url(${bgImg})` }}
-      />
+    <div
+      className="min-h-screen relative pb-16"
+      style={{ backgroundImage: `url(${bgImg})` }}
+    >
       <Navbar />
-
       <div className="relative z-10">
         <div className="flex items-center justify-center mt-7">
           <div className="border-b w-2/4">

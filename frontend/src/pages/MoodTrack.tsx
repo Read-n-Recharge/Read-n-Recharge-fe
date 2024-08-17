@@ -4,6 +4,8 @@ import moment from "moment";
 import { extendMoment } from "moment-range";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
+// import book from "../assets/book.png";
+// import emoji from "../assets/emoji.png";
 
 export default function MoodTrack() {
   const extendedMoment = extendMoment(moment);
@@ -35,14 +37,15 @@ export default function MoodTrack() {
   };
 
   return (
-    <div>
+    <div className="bg-gradient-to-b from-teal-600 to-cyan-300 h-screen relative">
       <Navbar />
-      <div className="flex items-center justify-center pt-5">
-        <div className="w-2/4">
-          <h1 className="text-xl font-semibold border-b border-black pb-2">
+
+      <div className="flex items-center justify-center">
+        <div className="w-3/5 bg-white bg-opacity-60 rounded-2xl p-8 shadow-lg backdrop-blur-lg mt-5">
+          <h1 className="text-xl font-semibold border-b border-white pb-2">
             Select the Date to Record Your Mood !
           </h1>
-          <div className="extenddate flex flex-row justify-between mt-5 bg-blue-300 p-3 rounded-full">
+          <div className="extenddate flex flex-row justify-between mt-5 p-3 rounded-full bg-white bg-opacity-30">
             <button onClick={prevMonth} className="">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -90,7 +93,7 @@ export default function MoodTrack() {
                         !day.isSame(currentDate, "month")
                           ? ""
                           : isCurrentDate
-                          ? "bg-blue-200 rounded-full"
+                          ? "bg-white bg-opacity-60 rounded-full"
                           : ""
                       } ${
                         day.isSame(currentDate, "month")
@@ -106,6 +109,7 @@ export default function MoodTrack() {
             })}
           </div>
         </div>
+        {/* <img src={book} alt="" className="absolute bottom-0 left-0 h-56" /> */}
       </div>
       <AnimatePresence>
         {flashMessage && (

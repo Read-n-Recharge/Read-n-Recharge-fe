@@ -1,15 +1,18 @@
-import React from "react";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../styles/App.css";
 
 export function Clock({ method, customTime }) {
   const [time, setTime] = useState({ minutes: 0, seconds: 0 });
   const [isRunning, setIsRunning] = useState(false);
+  const [round, setRound] = useState(1);
+  const [isBreak, setIsBreak] = useState(false);
 
   useEffect(() => {
     switch (method) {
       case "Pomodoro technique":
-        setTime({ minutes: 25, seconds: 0 });
+        setTime({ minutes: 1, seconds: 0 });
+        setRound(1);
+        setIsBreak(false);
         console.log("Setting Pomodoro technique time: 25 minutes");
         break;
       case "52-17 method":
@@ -35,7 +38,13 @@ export function Clock({ method, customTime }) {
       timer = setInterval(() => {
         setTime((prevTime) => {
           if (prevTime.seconds === 0) {
-            return { minutes: prevTime.minutes - 1, seconds: 59 };
+            if (prevTime.minutes === 0) {
+              handleSessionComplete();
+              // clearInterval(timer); 
+              return prevTime; 
+            } else {
+              return { minutes: prevTime.minutes - 1, seconds: 59 };
+            }
           }
           return { ...prevTime, seconds: prevTime.seconds - 1 };
         });
@@ -44,12 +53,32 @@ export function Clock({ method, customTime }) {
     return () => clearInterval(timer);
   }, [isRunning, time]);
 
+  const handleSessionComplete = () => {
+    if (method === "Pomodoro technique") {
+      if (isBreak) {
+        if (round < 4) {
+          setRound(round + 1);
+          setTime({ minutes: 1, seconds: 0 });
+          setIsBreak(false);
+          console.log(`Round ${round + 1}: Starting 25-minute session`);
+        } else {
+          setIsRunning(false);
+          console.log("Completed 4 rounds of Pomodoro!");
+        }
+      } else {
+        setTime({ minutes: 2, seconds: 0 });
+        setIsBreak(true);
+        console.log("Starting 5-minute break");
+      }
+    }
+  };
+
   const handleStartTime = () => setIsRunning(true);
   const handleStopTime = () => setIsRunning(false);
 
   return (
-    <div className="w-full flex items-center justify-center flex-col -mt-32">
-      <div className="clock flex" style={{ fontSize: "150px" }}>
+    <div className="w-full flex items-center justify-center flex-col">
+      <div className="clock flex w-full h-full items-center justify-center text-7xl " >
         <div className="bg-white bg-opacity-25 p-5 rounded-xl ">
           {String(time.minutes).padStart(2, "0")}
         </div>
@@ -75,6 +104,11 @@ export function Clock({ method, customTime }) {
           </button>
         )}
       </div>
+      {method === "Pomodoro technique" && (
+        <div className="mt-4 text-lg">
+          Round: {round} {isBreak && "(Break)"}
+        </div>
+      )}
     </div>
   );
 }
