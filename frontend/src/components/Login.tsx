@@ -5,6 +5,7 @@ import { AuthCredentials } from "../type";
 import { AnimatePresence } from "framer-motion";
 import PopupComponent from "./common/popupErr";
 import { FacePass } from "facepass-beta";
+
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -12,8 +13,7 @@ const LoginPage: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
     if (isSubmitting) return;
 
     setError(null);
@@ -44,7 +44,10 @@ const LoginPage: React.FC = () => {
       <h1 className="text-2xl font-bold text-gray-900">
         Sign in to your account
       </h1>
-      <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
+      <form
+        className="space-y-4 md:space-y-6"
+        onSubmit={(e) => e.preventDefault()}
+      >
         <div>
           <label
             htmlFor="email"
@@ -88,9 +91,10 @@ const LoginPage: React.FC = () => {
           </a>
         </div>
         <button
-          type="submit"
+          type="button"
           className="w-full bg-blue-950 text-white p-3 rounded-2xl hover:bg-blue-800"
           disabled={isSubmitting}
+          onClick={handleSubmit}
         >
           Sign in
         </button>
