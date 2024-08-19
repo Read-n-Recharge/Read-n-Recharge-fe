@@ -1,25 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { startRelay } from '../services/api';
+import { startRelay, Relaytatus } from '../services/api';
 
 interface RelayControlProps {
     relayID: number;
+    isActivated: boolean;
+    onActivate: (relayID: number, duration: number) => void;
 }
 
-const RelayControl: React.FC<RelayControlProps> = ({ relayID }) => {
-    const [duration, setDuration] = useState<number | string>(15);  // Allow the state to be a string for easier input handling
-    const [isActivated, setIsActivated] = useState<boolean>(false);
+const RelayControl: React.FC<RelayControlProps> = ({ relayID, isActivated, onActivate }) => {
+    const [duration, setDuration] = useState<number | string>(15);
     const [countdown, setCountdown] = useState<number | null>(null);
 
-    const handleActivate = async () => {
-        try {
-            const numericDuration = Number(duration);
-            if (numericDuration >= 15) {
-                await startRelay(relayID, numericDuration);
-                setCountdown(numericDuration * 60);
-                setIsActivated(true);
-            }
-        } catch (error) {
-            console.error('Error activating relay:', error);
+    const handleActivate = () => {
+        const numericDuration = Number(duration);
+        if (numericDuration >= 15) {
+            onActivate(relayID, numericDuration);
+            setCountdown(numericDuration * 60);
         }
     };
 
@@ -31,7 +27,6 @@ const RelayControl: React.FC<RelayControlProps> = ({ relayID }) => {
                     if (prevCountdown && prevCountdown > 1) {
                         return prevCountdown - 1;
                     } else {
-                        setIsActivated(false);
                         clearInterval(timer);
                         return 0;
                     }
@@ -43,7 +38,7 @@ const RelayControl: React.FC<RelayControlProps> = ({ relayID }) => {
 
     const handleDurationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
-        setDuration(value === '' ? '' : Math.max(Number(value), 0));  // Allow empty value, prevent negative numbers
+        setDuration(value === '' ? '' : Math.max(Number(value), 0));
     };
 
     return (
@@ -75,4 +70,46 @@ const RelayControl: React.FC<RelayControlProps> = ({ relayID }) => {
     );
 };
 
-export default RelayControl;
+const RelayDashboard: React.FC = () => {
+    const [relayStatus, setRelayStatus] = useState<{ [key: number]: string }>({});
+
+    useEffect(() => {
+        const fetchRelayStatus = async () => {
+            try {
+                const status = await Relaytatus();
+                setRelayStatus(status);
+            } catch (error) {
+                console.error('Error fetching relay status:', error);
+            }
+        };
+
+        fetchRelayStatus();
+    }, []);
+
+    const handleActivate = async (relayID: number, duration: number) => {
+        try {
+            await startRelay(relayID, duration);
+            setRelayStatus(prevStatus => ({
+                ...prevStatus,
+                [relayID]: 'active'
+            }));
+        } catch (error) {
+            console.error('Error activating relay:', error);
+        }
+    };
+
+    return (
+        <div className="grid grid-cols-2 gap-4">
+            {Object.keys(relayStatus).map(relayID => (
+                <RelayControl
+                    key={relayID}
+                    relayID={Number(relayID)}
+                    isActivated={relayStatus[Number(relayID)] === 'active'}
+                    onActivate={handleActivate}
+                />
+            ))}
+        </div>
+    );
+}    
+
+export default RelayDashboard;

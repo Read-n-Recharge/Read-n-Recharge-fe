@@ -205,3 +205,8 @@ export const stopRelay = async (relayID: number) => {
   const response = await api.post('/mqtt/relay/${relayID}/stop');
   return response.data;
 };
+
+export const Relaytatus = async () => {
+  const response = await api.get(`/mqtt/relay/status/`);
+  return response.data; 
+};
