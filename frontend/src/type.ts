@@ -51,4 +51,5 @@ export interface MoodRecord {
 export interface MoodHistoryProps {
   date: string;
   newRecordAdded: boolean;
+  points: number;
 }

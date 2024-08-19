@@ -15,10 +15,7 @@ export function ServicePage() {
   };
 
   return (
-    <div
-      className="min-h-screen bg-cover bg-center pb-12"
-      style={{ backgroundColor: "#001226" }}
-    >
+    <div className="min-h-screen bg-cover bg-center pb-12 bg-gradient-to-b from-teal-600 to-cyan-500">
       <nav className="border-b fixed top-0 w-full z-10 pb-3">
         <Header />
       </nav>
@@ -47,7 +44,7 @@ export function ServicePage() {
           <img
             src={mood}
             alt="Task managements img"
-            className="w-1/2 absolute right-4"
+            className="w-96 absolute right-24"
           />
           <div className="des absolute left-32 p-4 w-1/2">
             <h1 className="font-bold text-xl py-3">Mood Tracking</h1>

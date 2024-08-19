@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 interface ModalProps {
   isOpen: boolean;
@@ -24,7 +25,19 @@ const modalVariants = {
   },
 };
 
+const closeButtonVariants = {
+  hover: { scale: 1.2, rotate: 90, transition: { duration: 0.2 } },
+  tap: { scale: 0.9, rotate: -90, transition: { duration: 0.2 } },
+};
+
 const AnimatedModal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
+  const navigate = useNavigate();
+
+  const handleClose = () => {
+    onClose();
+    navigate("/mood");
+  };
+
   if (!isOpen) return null;
 
   return (
@@ -38,15 +51,21 @@ const AnimatedModal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
       >
         <div
           className="fixed inset-0 bg-black opacity-50"
-          onClick={onClose}
+          onClick={handleClose} 
         ></div>
         <motion.div
-          className="bg-white p-5 rounded-lg z-10 max-w-3xl mx-auto"
+          className="relative bg-white bg-opacity-90 p-5 rounded-lg z-10 max-w-3xl mx-auto"
           variants={modalVariants}
         >
-          <button className="absolute top-2 right-4 text-3xl" onClick={onClose}>
+          <motion.button
+            className="absolute top-2 right-4 text-3xl text-gray-600"
+            onClick={handleClose} 
+            variants={closeButtonVariants}
+            whileHover="hover"
+            whileTap="tap"
+          >
             &times;
-          </button>
+          </motion.button>
           {children}
         </motion.div>
       </motion.div>

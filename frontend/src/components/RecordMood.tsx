@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Navbar } from "./common/navbar";
-import { getUserIdFromToken, PostMoodRecord } from "../services/api";
+import {
+  getUserIdFromToken,
+  points_record,
+  PostMoodRecord,
+} from "../services/api";
 import MoodHistory from "../components/MoodHistory";
 import AnimatedModal from "./common/AnimatedModal";
 import { moodImages } from "./utils/moodImages";
+import bubbleImg from "../assets/emoji.png";
+// import manImg from "../assets/thinkMan.png";
 
 export default function RecordMood() {
   const { date } = useParams();
@@ -59,7 +65,7 @@ export default function RecordMood() {
   const [userId, setUserId] = useState<number | null>(null);
   const [newRecordAdded, setNewRecordAdded] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const points = 10;
   const handleMoodClick = (moodValue) => {
     setMood(moodValue);
   };
@@ -81,9 +87,12 @@ export default function RecordMood() {
       context,
     };
     console.log("Mood Data:", moodData);
+
     try {
       await PostMoodRecord(moodData);
       console.log("Mood recorded successfully");
+      points_record(points, "add");
+      console.log("Get point", { points });
       setNewRecordAdded(!newRecordAdded);
       setIsModalOpen(true);
 
@@ -95,12 +104,14 @@ export default function RecordMood() {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center mt-5">
+    <div className="flex flex-col justify-center items-center bg-gradient-to-b from-teal-600 to-cyan-300 h-screen w-screen  overflow-hidden">
       <Navbar />
-      <div className="text-3xl font-semibold">{date}</div>
+      <img src={bubbleImg} className="absolute h-96 -left-56  bottom-0" />
+      {/* <img src={manImg} className="absolute h-3/4 right-5 bottom-0" /> */}
+      <div className="text-3xl font-semibold text-white">{date}</div>
       <div className="note-box p-5">
         <form onSubmit={handleSubmit}>
-          <div className="mb-4 p-5 bg-blue-50 rounded-md">
+          <div className="mb-4 p-5 bg-blue-50 bg-opacity-50 rounded-2xl">
             <label className="block text-gray-700 text-lg font-bold mb-2">
               How are you feeling?
             </label>
@@ -119,7 +130,7 @@ export default function RecordMood() {
                   <img
                     src={choice.imageUrl}
                     alt={choice.label}
-                    className={`w-28 h-28 inline-block mr-2 ${
+                    className={`w-28 h-28 rounded-lg inline-block mr-2 ${
                       mood !== choice.value ? "filter grayscale" : ""
                     }`}
                   />
@@ -129,7 +140,7 @@ export default function RecordMood() {
             </div>
           </div>
 
-          <div className="mb-4 p-5 bg-blue-50 rounded-md">
+          <div className="mb-4 p-5 bg-blue-50 bg-opacity-50 rounded-md">
             <label
               className="block text-gray-700 text-lg font-bold mb-2"
               htmlFor="context"
@@ -156,7 +167,11 @@ export default function RecordMood() {
         </form>
       </div>
       <AnimatedModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <MoodHistory date={date!} newRecordAdded={newRecordAdded} />
+        <MoodHistory
+          date={date!}
+          newRecordAdded={newRecordAdded}
+          points={points}
+        />
       </AnimatedModal>
     </div>
   );

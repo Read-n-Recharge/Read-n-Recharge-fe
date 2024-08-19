@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../styles/App.css";
 import { Modal } from "../components/common/modal";
+import { points_record } from "../services/api";
 
 export function Clock({ method, customTime }) {
   const [time, setTime] = useState({ minutes: 0, seconds: 0 });
@@ -50,17 +51,25 @@ export function Clock({ method, customTime }) {
     }
 
     return () => clearInterval(timer);
-  }, [isRunning, time]);
+  }, [isRunning]);
 
   const handleSessionComplete = () => {
-    const message = isBreak
-      ? `Break complete. Round: ${round}`
-      : `Session complete. Round: ${round}`;
+    const points = calculatePoints();
 
-    setModalMessage(message);
-    setIsModalOpen(true);
+    points_record(points, "add")
+      .then(() => {
+        const message = isBreak
+          ? `Break complete. Round: ${round}. You earned ${points} points.`
+          : `Session complete. Round: ${round}. You earned ${points} points.`;
 
-    setIsRunning(false);
+        setModalMessage(message);
+        setIsModalOpen(true);
+
+        setIsRunning(false);
+      })
+      .catch((error) => {
+        console.error("Error recording points:", error);
+      });
   };
 
   const handleStartTime = () => setIsRunning(true);
@@ -74,7 +83,6 @@ export function Clock({ method, customTime }) {
           setRound(round + 1);
           setTime({ minutes: 25, seconds: 0 });
           setIsBreak(false);
-          console.log(`Round ${round + 1}: Starting 25-minute session`);
           setIsRunning(true);
         } else {
           setRound(1);
@@ -85,7 +93,7 @@ export function Clock({ method, customTime }) {
       } else {
         setIsBreak(true);
         if (round < 4) {
-          setTime({ minutes: 5, seconds: 0 }); // Regular break time
+          setTime({ minutes: 5, seconds: 0 });
         } else {
           setTime({ minutes: 20, seconds: 0 });
         }
@@ -93,6 +101,21 @@ export function Clock({ method, customTime }) {
       }
     }
     handleCloseModal();
+  };
+
+  const calculatePoints = () => {
+    switch (method) {
+      case "Pomodoro technique":
+        return 200;
+      case "52-17 method":
+        return 100;
+      case "90-minute focus sessions":
+        return 150;
+      case "custom time":
+        return Math.round(customTime.minutes * 1.25);
+      default:
+        return 0;
+    }
   };
 
   return (
@@ -133,7 +156,7 @@ export function Clock({ method, customTime }) {
           message={modalMessage}
           onClose={handleCloseModal}
           onNextSession={
-            method === "Pomodoro technique" && round < 4
+            method === "Pomodoro technique" && round < 4 && !isBreak
               ? handleNextSession
               : null
           }
