@@ -38,8 +38,9 @@ export function Clock({ method, customTime }) {
       timer = setInterval(() => {
         setTime((prevTime) => {
           if (prevTime.minutes === 0 && prevTime.seconds === 0) {
-            clearInterval(timer);
             handleSessionComplete();
+            clearInterval(timer);
+
             return prevTime;
           } else if (prevTime.seconds === 0) {
             return { minutes: prevTime.minutes - 1, seconds: 59 };
@@ -51,7 +52,7 @@ export function Clock({ method, customTime }) {
     }
 
     return () => clearInterval(timer);
-  }, [isRunning]);
+  }, [isRunning, time]);
 
   const handleSessionComplete = () => {
     const points = calculatePoints();
@@ -106,7 +107,7 @@ export function Clock({ method, customTime }) {
   const calculatePoints = () => {
     switch (method) {
       case "Pomodoro technique":
-        return 200;
+        return Math.round(time.minutes * 1.25);
       case "52-17 method":
         return 100;
       case "90-minute focus sessions":
@@ -156,7 +157,7 @@ export function Clock({ method, customTime }) {
           message={modalMessage}
           onClose={handleCloseModal}
           onNextSession={
-            method === "Pomodoro technique" && round < 4 && !isBreak
+            method === "Pomodoro technique" && round < 4
               ? handleNextSession
               : null
           }
