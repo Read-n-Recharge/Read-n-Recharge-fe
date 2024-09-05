@@ -10,8 +10,8 @@ export function Modal({ message, onClose, onNextSession, round }) {
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-[5000]">
-      <div className="h-96 w-96 bg-white flex flex-col gap-5 rounded-3xl justify-center items-center p-6">
+    <div className="fixed inset-0 bg-black bg-opacity-80 flex justify-center items-center z-[5000]">
+      <div className="h-80 w-80 bg-white bg-opacity-85 flex flex-col gap-5 rounded-3xl justify-center items-center p-6">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"

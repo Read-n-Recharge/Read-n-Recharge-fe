@@ -5,11 +5,19 @@ export default {
     extend: {
       boxShadow: {
         glow: "0 0 15px rgba(255, 255, 255, 0.7)",
-        'glow-blue': '0 0 15px rgba(230, 246, 255, 0.8)',
+        "glow-blue": "0 0 15px rgba(230, 246, 255, 0.8)",
       },
       backgroundColor: {
         glow: "rgba(255, 255, 255, 0.3)",
-        'glow-blue': 'rgba(230, 246, 255, 0.5)'
+        "glow-blue": "rgba(230, 246, 255, 0.5)",
+      },
+      colors: {
+        "custom-green": "#d3f8e2",
+        "custom-blue": "#dbe8fa",
+      },
+      backgroundImage: {
+        "custom-gradient":
+          "linear-gradient(to bottom, #a7d2ba, #a2cacc, #9ac2e8)", 
       },
     },
   },

@@ -6,6 +6,7 @@ import {
   UserData,
   DecodedTokenData,
   Todo,
+  Point,
 } from "../type";
 import { jwtDecode } from "jwt-decode";
 
@@ -196,17 +197,28 @@ export const points_record = async (points, action) => {
   }
 };
 
-export const startRelay = async (relayID: number, duration: number) => {
-  const response = await api.post(`/mqtt/relay/${relayID}/start/`, { duration });
-  return response.data; 
+export const getTotalPoints = async (): Promise<Point> => {
+  try {
+    const response = await api.get("/points/total_points");
+    console.log("User Total point: ", response);
+    return response.data[0];
+  } catch (error) {
+    return error;
+  }
 };
-
-export const stopRelay = async (relayID: number) => {
-  const response = await api.post('/mqtt/relay/${relayID}/stop');
+export const startRelay = async (relayID: number, duration: number) => {
+  const response = await api.post(`/mqtt/relay/${relayID}/start/`, {
+    duration,
+  });
   return response.data;
 };
 
-export const Relaytatus = async () => {
+export const stopRelay = async (relayID: number) => {
+  const response = await api.post("/mqtt/relay/${relayID}/stop");
+  return response.data;
+};
+
+export const getRelayStatus = async () => {
   const response = await api.get(`/mqtt/relay/status/`);
-  return response.data; 
+  return response.data;
 };

@@ -13,7 +13,7 @@ const ClockPage = () => {
   console.log("ClockPage - CustomTime:", customTime);
 
   return (
-    <div className="h-screen w-screen items-center flex flex-col bg-cover bg-center  bg-gradient-to-b from-teal-700 to-cyan-300 overflow-hidden rela">
+    <div className="h-screen w-screen items-center flex flex-col bg-cover bg-center  bg-custom-gradient overflow-hidden rela">
       <Navbar />
       <div className="md:w-full h-full flex flex-col items-center gap-10 p-5  w-8/12">
         <img

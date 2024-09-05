@@ -36,6 +36,16 @@ export function Navbar() {
             Mood Record
           </NavLink>
         </div>
+        <div className="activity py-2 px-3 font-medium">
+          <NavLink
+            to="/charging"
+            className={({ isActive }) =>
+              isActive ? "border-b border-white pb-2" : ""
+            }
+          >
+            <p>Charging Station</p>
+          </NavLink>
+        </div>
         <div className="gps py-2 px-3 font-medium">
           <NavLink
             to="/gps"

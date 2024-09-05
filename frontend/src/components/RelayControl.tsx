@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { startRelay, Relaytatus } from '../services/api';
+import { startRelay, getRelayStatus } from '../services/api';
 
 interface RelayControlProps {
     relayID: number;
@@ -76,7 +76,7 @@ const RelayDashboard: React.FC = () => {
     useEffect(() => {
         const fetchRelayStatus = async () => {
             try {
-                const status = await Relaytatus();
+                const status = await getRelayStatus();
                 setRelayStatus(status);
             } catch (error) {
                 console.error('Error fetching relay status:', error);

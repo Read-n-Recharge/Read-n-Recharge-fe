@@ -37,9 +37,8 @@ export default function MoodTrack() {
   };
 
   return (
-    <div className="bg-gradient-to-b from-teal-600 to-cyan-300 h-screen relative">
+    <div className="bg-custom-gradient h-screen">
       <Navbar />
-
       <div className="flex items-center justify-center">
         <div className="w-3/5 bg-white bg-opacity-60 rounded-2xl p-8 shadow-lg backdrop-blur-lg mt-5">
           <h1 className="text-xl font-semibold border-b border-white pb-2">

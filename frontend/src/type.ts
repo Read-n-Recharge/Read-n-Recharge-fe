@@ -53,3 +53,20 @@ export interface MoodHistoryProps {
   newRecordAdded: boolean;
   points: number;
 }
+
+export interface Point {
+  totalPoints: number;
+}
+
+export interface RelayControlProps {
+  relayID: number;
+  isActivated: boolean;
+  onActivate: (relayID: number, duration: number) => void;
+}
+
+export interface ModalProps {
+  title: string;
+  content: string;
+  onConfirm: () => void;
+  onCancel: () => void;
+}

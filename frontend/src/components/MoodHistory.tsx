@@ -29,7 +29,7 @@ const MoodHistory: React.FC<MoodHistoryProps> = ({
   return (
     <div className="flex flex-col justify-center items-center">
       <h2 className="text-2xl font-semibold">Mood history of {date}</h2>
-      <p>You got {points} for record mood</p>
+      <p className="pt-5">Congrate!! You got {points} for record mood</p>
       {moodRecords.length > 0 ? (
         <div className="mt-3 max-h-96 overflow-y-auto w-full">
           <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
