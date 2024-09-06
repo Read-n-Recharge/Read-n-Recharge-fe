@@ -17,7 +17,10 @@ export default {
       },
       backgroundImage: {
         "custom-gradient":
-          "linear-gradient(to bottom, #a7d2ba, #a2cacc, #9ac2e8)", 
+          "linear-gradient(to bottom, #a7d2ba, #a2cacc, #9ac2e8)",
+      },
+      fontSize: {
+        tiny: "10px",
       },
     },
   },

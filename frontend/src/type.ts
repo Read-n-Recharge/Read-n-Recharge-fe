@@ -55,7 +55,7 @@ export interface MoodHistoryProps {
 }
 
 export interface Point {
-  totalPoints: number;
+  total_points: number;
 }
 
 export interface RelayControlProps {
@@ -69,4 +69,10 @@ export interface ModalProps {
   content: string;
   onConfirm: () => void;
   onCancel: () => void;
+}
+
+export interface RelayControlProps {
+  relayID: number;
+  isActivated: boolean;
+  onActivate: (relayID: number, duration: number) => void;
 }
