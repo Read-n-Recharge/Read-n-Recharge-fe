@@ -71,8 +71,8 @@ export interface ModalProps {
   onCancel: () => void;
 }
 
-export interface RelayControlProps {
+export interface RelayStatus {
   relayID: number;
   isActivated: boolean;
-  onActivate: (relayID: number, duration: number) => void;
+  duration: number;
 }

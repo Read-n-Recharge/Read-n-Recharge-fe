@@ -16,8 +16,7 @@ export default {
         "custom-blue": "#dbe8fa",
       },
       backgroundImage: {
-        "custom-gradient":
-          "linear-gradient(to bottom, #a7d2ba, #a2cacc, #9ac2e8)",
+        "custom-gradient": "linear-gradient(to top, #bde7c6, #94b9ff,#94b9ff)",
       },
       fontSize: {
         tiny: "10px",

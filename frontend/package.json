@@ -10,7 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@react-google-maps/api": "^2.19.3",
+    "@mapbox/mapbox-sdk": "^0.16.0",
+    "@rnmapbox/maps": "^10.1.30",
     "axios": "^1.7.2",
     "bootstrap-icons": "^1.11.3",
     "css.gg": "^2.1.1",
@@ -19,6 +20,7 @@
     "facepass-beta": "^1.0.86",
     "framer-motion": "^11.2.4",
     "jwt-decode": "^4.0.0",
+    "mapbox-gl": "^2.15.0",
     "moment": "^2.30.1",
     "moment-range": "^4.0.2",
     "query-string": "^9.0.0",
