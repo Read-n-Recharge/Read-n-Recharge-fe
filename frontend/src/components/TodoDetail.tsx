@@ -139,17 +139,18 @@ const TaskDetails: React.FC<TaskDetailProps> = ({ task, onUpdate }) => {
                 </select>
               </div>
               <div className="flex items-center justify-end gap-3 pt-5">
+               
+                <button
+                  onClick={() => setIsEditing(false)}
+                  className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                >
+                  Cancel
+                </button>
                 <button
                   onClick={handleUpdateTask}
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline "
                 >
                   Update
-                </button>
-                <button
-                  onClick={() => setIsEditing(false)}
-                  className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                >
-                  Cancel
                 </button>
               </div>
             </div>
@@ -209,7 +210,7 @@ const TaskDetails: React.FC<TaskDetailProps> = ({ task, onUpdate }) => {
         <div className="flex m-2 gap-2 justify-between">
           <div className="my-2 gap-2 flex">
             <button
-              className="bg-gray-900 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline w-32"
+              className="bg-gray-700 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline w-32"
               onClick={handleStartTask}
             >
               Let's start
@@ -218,13 +219,13 @@ const TaskDetails: React.FC<TaskDetailProps> = ({ task, onUpdate }) => {
           <div className="m-2 gap-1 flex">
             <button
               onClick={hanleEditingTask}
-              className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 w-24 rounded-full focus:outline-none focus:shadow-outline"
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 w-24 rounded-full focus:outline-none focus:shadow-outline"
             >
               Edit
             </button>
             <button
               onClick={handleDeleteTask}
-              className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline w-24"
+              className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline w-24"
             >
               Delete
             </button>

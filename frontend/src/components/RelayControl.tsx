@@ -163,7 +163,7 @@ const RelayControl: React.FC = () => {
         return (
           <div
             key={relayID}
-            className={`bg-white shadow-md rounded-lg p-6 ${
+            className={`bg-white bg-opacity-95 shadow-md rounded-lg p-6 ${
               isActivated ? "bg-gray-200" : ""
             }`}
           >

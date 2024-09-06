@@ -9,7 +9,7 @@ const FlashCard: React.FC<{ message: string }> = ({ message }) => {
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -50 }}
         transition={{ duration: 0.5 }}
-        className="bg-green-500 text-white p-3 rounded shadow-lg"
+        className="bg-green-500 text-white p-3 rounded-xl shadow-lg"
       >
         {message}
       </motion.div>
