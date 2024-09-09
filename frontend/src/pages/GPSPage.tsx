@@ -39,7 +39,7 @@ export default function GpsPage() {
                   } w-full text-center p-5 rounded-lg shadow-sm`}
                 >
                   <span>
-                    Relay {key}: &nbsp;{value.status}
+                    Socket Port No. {key}: &nbsp;{value.status}
                   </span>
                 </li>
               ))}

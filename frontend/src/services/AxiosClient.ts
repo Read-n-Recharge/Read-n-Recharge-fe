@@ -22,3 +22,21 @@ api.interceptors.request.use(
     return Promise.reject(error);
   }
 );
+
+api.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  async (error) => {
+    if (error.response?.status === 401) {
+      localStorage.removeItem("access_token");
+      localStorage.removeItem("refresh_token");
+      delete api.defaults.headers.common["Authorization"];
+
+      window.location.href = "/"
+    }
+    return Promise.reject(error);
+  }
+);
+
+export default api;

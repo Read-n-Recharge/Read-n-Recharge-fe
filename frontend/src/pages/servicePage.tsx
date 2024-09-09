@@ -15,7 +15,7 @@ export function ServicePage() {
   };
 
   return (
-    <div className="min-h-screen bg-cover bg-center pb-12 bg-gradient-to-b from-teal-600 to-cyan-500">
+    <div className="min-h-screen bg-cover bg-center pb-12 bg-custom-gradient">
       <nav className="border-b fixed top-0 w-full z-10 pb-3">
         <Header />
       </nav>
