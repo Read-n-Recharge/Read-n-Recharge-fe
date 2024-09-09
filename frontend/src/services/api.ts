@@ -86,6 +86,16 @@ export const submitStudyPreference = async (
   }
 };
 
+export const UpdatePreference = async ( preferenceData: Partial<StudyPreferenceData>) => {
+  try {
+    const response = await api.put(`auth/form/update/`, preferenceData);
+    console.log(response.data);
+    return response.data;
+  } catch (err) {
+    throw err;
+  }
+};
+
 export const getUserProfile = async () => {
   const userId = getUserIdFromToken();
   try {

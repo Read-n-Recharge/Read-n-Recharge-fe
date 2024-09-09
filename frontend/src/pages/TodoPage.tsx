@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Todo } from "../type";
-import { RetrieveTask, DeleteTask, UpdateTask } from "../services/api";
+import { RetrieveTask, DeleteTask } from "../services/api";
 import TaskForm from "../components/forms/TodoForm";
 import { AnimatePresence } from "framer-motion";
 import TaskDetails from "../components/TodoDetail";
