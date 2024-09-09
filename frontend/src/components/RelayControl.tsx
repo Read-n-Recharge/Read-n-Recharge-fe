@@ -168,7 +168,7 @@ const RelayControl: React.FC = () => {
             }`}
           >
             <h3 className="text-lg font-semibold text-black py-2">
-              Relay {relayID}
+            Charging Port No. {relayID}
             </h3>
 
             <input

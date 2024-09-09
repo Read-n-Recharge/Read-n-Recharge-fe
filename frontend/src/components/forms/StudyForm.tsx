@@ -58,12 +58,12 @@ const StudyForm: React.FC<StudyFormProps> = ({ userId }) => {
       setStudyingStyleError(null);
     }
 
-    if (!procrastination) {
-      setProcrastinationError("Please select procrastination.");
-      hasError = true;
-    } else {
-      setProcrastinationError(null);
-    }
+    // if (!procrastination) {
+    //   setProcrastinationError("Please select procrastination.");
+    //   hasError = true;
+    // } else {
+    //   setProcrastinationError(null);
+    // }
 
     if (!physicalActivity) {
       setPhysicalActivityError("Please describe your physical activity.");
