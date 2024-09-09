@@ -24,11 +24,11 @@ const chargingPage = () => {
   return (
     <div className="h-screen w-screen bg-custom-gradient">
       <Navbar />
-      <div className="flex flex-col items-center justify-center">
+      <div className="flex flex-col items-center justify-center mt-12">
         <h1 className="text-3xl font-bold text-center text-white p-5">
           Battery Charging station control
         </h1>
-        <div className="text-md text-white border w-fit p-3 rounded-full">
+        <div className="text-md text-white border w-fit p-3 rounded-full mt-5">
           {totalPoint !== null ? (
             <p>Your remaining points : {totalPoint.total_points}</p>
           ) : (

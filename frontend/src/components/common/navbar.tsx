@@ -58,7 +58,7 @@ export function Navbar() {
         </div>
         <div className="activity py-2 px-3 font-medium">
           <NavLink
-            to="#"
+            to="/activity"
             className={({ isActive }) =>
               isActive ? "border-b border-white pb-2" : ""
             }
@@ -70,7 +70,7 @@ export function Navbar() {
       <div className="leftside flex gap-5">
         <div className="profile">
           <NavLink
-            to="#"
+            to="/user"
             className="flex items-center justify-center gap-2 bg-white bg-opacity-20 border border-white rounded-full w-28 py-2 text-white "
           >
             <svg

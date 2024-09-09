@@ -152,7 +152,7 @@ const RelayControl: React.FC = () => {
   };
 
   return (
-    <div className="grid grid-cols-2 gap-6 px-24 py-12">
+    <div className="grid grid-cols-3 gap-6 px-24 py-12">
       {Object.keys(relayStatus).map((relayID) => {
         const numericRelayID = Number(relayID);
         const isActivated = relayStatus[numericRelayID]?.status === "active";
@@ -192,6 +192,11 @@ const RelayControl: React.FC = () => {
               <p className="mt-2 text-xs text-blue-500">
                 You will need {calculatedPoints} points to redeem for {duration}{" "}
                 minutes.
+              </p>
+            )}
+            {duration && Number(duration) < 15 && (
+              <p className="mt-2 text-xs text-red-500">
+                You have to input the duration more than 15 minute
               </p>
             )}
 

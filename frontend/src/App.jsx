@@ -23,7 +23,7 @@ function App() {
         <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/service" element={<ServicePage />} />
-        <Route path="/user/:id" element={<UserProfile />} />
+        <Route path="/user" element={<UserProfile />} />
         <Route path="/todo-list" element={<TasksList />} />
         <Route path="/clock" element={<ClockPage />} />
         <Route path="/error" element={<ErrorPage />} />
