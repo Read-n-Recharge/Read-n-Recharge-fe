@@ -7,7 +7,7 @@ export function Header() {
       <nav>
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto pt-3">
           <a href="#">
-            <span className="text-2xl font-semibold whitespace-nowrap text-white">
+            <span className="text-4xl font-semibold whitespace-nowrap text-white">
               Read 'n' Recharge
             </span>
           </a>
@@ -44,8 +44,8 @@ export function Header() {
                 <NavLink
                   to="/about"
                   className={({ isActive }) =>
-                    `block py-2 px-2 md:px-6 rounded-3xl text-white hover:shadow-glow hover:bg-glow${
-                      isActive ? "shadow-glow bg-glow" : ""
+                    `block py-2 px-2 md:px-6 rounded-3xl text-white border-sky-100 border-solid border hover:bg-glow hover:shadow-glow-blue ${
+                      isActive ? "bg-glow-blue" : ""
                     }`
                   }
                 >
@@ -56,8 +56,8 @@ export function Header() {
                 <NavLink
                   to="/service"
                   className={({ isActive }) =>
-                    `block py-2 px-2 md:px-6 rounded-3xl text-white hover:shadow-glow hover:bg-glow ${
-                      isActive ? "shadow-glow bg-glow" : ""
+                    `block py-2 px-2 md:px-6 rounded-3xl text-white border-sky-100 border-solid border hover:bg-glow hover:shadow-glow-blue ${
+                      isActive ? "bg-glow-blue" : ""
                     }`
                   }
                 >

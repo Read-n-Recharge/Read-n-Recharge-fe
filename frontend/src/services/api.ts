@@ -25,6 +25,7 @@ const decodeToken = (): DecodedTokenData => {
   }
 };
 
+
 export const getUserIdFromToken = (): number => {
   const decoded = decodeToken();
   const userId = decoded.user_id;
