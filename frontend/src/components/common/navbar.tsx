@@ -8,7 +8,7 @@ export function Navbar() {
       <div className="rightside flex gap-3 text-white">
         <div className="logo bg-white bg-opacity-20 rounded-full border border-white py-2 px-2">
           <NavLink
-            to="#"
+            to="/todo-list"
             className={({ isActive }) =>
               isActive ? "border-b-4 border-white" : ""
             }
@@ -58,12 +58,12 @@ export function Navbar() {
         </div>
         <div className="activity py-2 px-3 font-medium">
           <NavLink
-            to="/activity"
+            to="/dashboard"
             className={({ isActive }) =>
               isActive ? "border-b border-white pb-2" : ""
             }
           >
-            <p>Activity</p>
+            <p>Dashboard</p>
           </NavLink>
         </div>
       </div>

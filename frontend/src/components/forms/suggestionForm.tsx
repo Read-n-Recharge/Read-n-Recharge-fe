@@ -1,6 +1,17 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 
+const descriptions = {
+  "90-minute focus sessions":
+    "Dive into a deep work session for 90 minutes like a productivity superhero!",
+  "Pomodoro technique":
+    "Be a time wizard with 25-minute work sprints and 5-minute breaks—repeat and conquer your to-do list like a champ!",
+  "52-17 method":
+    "Crush your goals with 52 minutes of focus followed by a 17-minute refresh break. Perfect for work and play!",
+  "custom time":
+    "Create your ideal productivity potion with your own work and break times. Tailor your schedule to fit your unique rhythm!",
+};
+
 const SuggestionForm = ({ suggestedMethod, onConfirm, onClose }) => {
   const [selectedMethod, setSelectedMethod] = useState(suggestedMethod);
   const [customTime, setCustomTime] = useState({ minutes: 0 });
@@ -31,25 +42,31 @@ const SuggestionForm = ({ suggestedMethod, onConfirm, onClose }) => {
         transition={{ duration: 0.5 }}
         className="bg-white p-6 rounded-lg shadow-lg w-2/6"
       >
-        <h2 className="text-xl text-center mb-4">Choose Your Study Method</h2>
+        <h2 className="text-xl text-center mb-4 text-cyan-700 font-semibold">Choose Your Study Method</h2>
         <div className="mb-4">
-          <div className="mb-2 flex ">
-            <label htmlFor=""> Suggested Study Method : </label>
+          <div className="mb-2 flex">
+            <label htmlFor="">Suggested Study Method:</label>
             <p>&nbsp;{suggestedMethod}</p>
           </div>
-          <select
-            value={selectedMethod}
-            onChange={(e) => setSelectedMethod(e.target.value)}
-            className="border p-2 rounded w-full"
-          >
-            <option value="">Select</option>
-            <option value="90-minute focus sessions">
-              90-minute focus sessions
-            </option>
-            <option value="Pomodoro technique">Pomodoro technique</option>
-            <option value="52-17 method">52-17 method</option>
-            <option value="custom time">Custom time</option>
-          </select>
+          <div className="relative">
+            <select
+              value={selectedMethod}
+              onChange={(e) => setSelectedMethod(e.target.value)}
+              className="border p-2 rounded w-full"
+            >
+              <option value="">Select</option>
+              {Object.keys(descriptions).map((method) => (
+                <option key={method} value={method}>
+                  {method}
+                </option>
+              ))}
+            </select>
+            {selectedMethod && (
+              <p className="text-xs text-cyan-700 p-2">
+                {descriptions[selectedMethod]}
+              </p>
+            )}
+          </div>
         </div>
         {selectedMethod === "custom time" && (
           <div className="mb-4">

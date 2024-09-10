@@ -121,7 +121,7 @@ export default function RecordMood() {
                   <button
                     type="button"
                     key={choice.value}
-                    className={`p-3 px-5 text-l rounded flex flex-col items-center ${
+                    className={`p-3 px-5 text-l rounded-2xl flex flex-col items-center ${
                       mood === choice.value
                         ? "bg-red-200 text-white "
                         : "bg-gray-200 hover:bg-red-100 hover:text-white"
@@ -131,7 +131,7 @@ export default function RecordMood() {
                     <img
                       src={choice.imageUrl}
                       alt={choice.label}
-                      className={`w-28 h-28 rounded-lg inline-block mr-2 ${
+                      className={`w-28 h-28 rounded-2xl inline-block mr-2 ${
                         mood !== choice.value ? "filter grayscale" : ""
                       }`}
                     />
@@ -141,7 +141,7 @@ export default function RecordMood() {
               </div>
             </div>
 
-            <div className="mb-4 p-5 bg-blue-50 bg-opacity-50 rounded-md">
+            <div className="mb-4 p-5 bg-blue-50 bg-opacity-50 rounded-2xl">
               <label
                 className="block text-gray-700 text-lg font-bold mb-2"
                 htmlFor="context"
@@ -153,7 +153,7 @@ export default function RecordMood() {
                 id="context"
                 value={context}
                 onChange={(e) => setContext(e.target.value)}
-                className="shadow appearance-none border rounded w-full h-12 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                className="shadow appearance-none border rounded-xl w-full h-12 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 placeholder="e.g., Happy after studying"
               />
             </div>

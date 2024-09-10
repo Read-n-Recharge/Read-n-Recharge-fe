@@ -1,10 +1,11 @@
 import React from "react";
+import { Navbar } from "../components/common/navbar";
 
 export function DashboardPage() {
   return (
-    <div>
-      <h1>Dashboard</h1>
-      <p>Welcome to the dashboard!</p>
+    <div className="min-h-screen bg-cover bg-center pb-12 bg-custom-gradient">
+      <Navbar/>
+      
     </div>
   );
 }

@@ -3,11 +3,9 @@ import { Header } from "../components/common/Header";
 
 export function AboutPage() {
   return (
-    <>
-      <nav className="pb-2 bg-black bg-opacity-50 ">
-        <Header />
-      </nav>
-      <p>This is service page</p>
-    </>
+    <div className="h-screen w-screen bg-custom-gradient">
+      <Header />
+      
+    </div>
   );
 }

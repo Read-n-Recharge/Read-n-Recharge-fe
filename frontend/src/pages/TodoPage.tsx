@@ -22,7 +22,7 @@ const TasksList: React.FC = () => {
       console.log("Tasks retrieved:", tasks);
       setTasks(tasks);
     } catch (error) {
-      navigate("/error");
+      // navigate("/error");
     }
   };
 

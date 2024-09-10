@@ -64,7 +64,7 @@ const UserProfile: React.FC = () => {
   return (
     <div className="h-screen w-screen bg-custom-gradient flex flex-col">
       <Navbar />
-      <div className="flex-grow flex flex-col justify-center items-center">
+      <div className="flex-grow flex flex-col justify-center items-center mx-28">
         <div className="profile flex border-2 border-white p-5 gap-12 rounded-3xl">
           <img
             src="https://i.pinimg.com/564x/48/01/4c/48014c97571374fcc1d3d37c6c81ab98.jpg"
@@ -74,10 +74,10 @@ const UserProfile: React.FC = () => {
 
           <div className="right">
             <div>
-              <h1 className="text-7xl font-bold py-5 text-slate-100">
+              <h1 className="text-6xl font-bold py-5 text-slate-100">
                 Hi, {user?.first_name}
               </h1>
-              <p className="text-xs pb-3 text-gray-700">
+              <p className="text-md pb-3 text-gray-700">
                 Feeling ready to make things happen today? Let’s turn those
                 dreams into plans and those plans into action{" "}
                 <span className="text-purple-700 font-semibold">

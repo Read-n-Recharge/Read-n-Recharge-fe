@@ -10,7 +10,6 @@ import ClockPage from "./pages/ClockPage";
 import ErrorPage from "./pages/ErrorPage";
 import MoodTrack from "./pages/MoodTrack";
 import RecordMood from "./components/RecordMood";
-import Activity from "./pages/activity";
 import GpsPage from "./pages/GPSPage";
 import ChargingPage from "./pages/ChargingPage";
 
@@ -29,9 +28,8 @@ function App() {
         <Route path="/error" element={<ErrorPage />} />
         <Route path="/mood" element={<MoodTrack />} />
         <Route path="/record-mood/:date" element={<RecordMood />} />
-        <Route path="/activity" element={<Activity />} />
         <Route path="/gps" element={<GpsPage />} />
-        <Route path="/charging" element={<ChargingPage/>} />
+        <Route path="/charging" element={<ChargingPage />} />
       </Routes>
     </Router>
   );
