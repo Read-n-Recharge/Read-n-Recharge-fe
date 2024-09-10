@@ -59,6 +59,11 @@ export interface Point {
   total_points: number;
 }
 
+export interface PointHistory {
+  points: number;
+  action: string;
+}
+
 export interface RelayControlProps {
   relayID: number;
   isActivated: boolean;
@@ -76,4 +81,11 @@ export interface RelayStatus {
   relayID: number;
   isActivated: boolean;
   duration: number;
+}
+
+export interface MoodCategory {
+  category: string;
+  count: number;
+  percentage: number;
+  color: string;
 }

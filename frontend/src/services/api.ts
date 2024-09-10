@@ -7,6 +7,7 @@ import {
   DecodedTokenData,
   Todo,
   Point,
+  PointHistory,
 } from "../type";
 import { jwtDecode } from "jwt-decode";
 
@@ -24,7 +25,6 @@ const decodeToken = (): DecodedTokenData => {
     throw new Error("Failed to decode token: " + error.message);
   }
 };
-
 
 export const getUserIdFromToken = (): number => {
   const decoded = decodeToken();
@@ -87,7 +87,9 @@ export const submitStudyPreference = async (
   }
 };
 
-export const UpdatePreference = async ( preferenceData: Partial<StudyPreferenceData>) => {
+export const UpdatePreference = async (
+  preferenceData: Partial<StudyPreferenceData>
+) => {
   try {
     const response = await api.put(`auth/form/update/`, preferenceData);
     console.log(response.data);
@@ -217,6 +219,18 @@ export const getTotalPoints = async (): Promise<Point> => {
     return error;
   }
 };
+
+export const getPointsHistory = async (): Promise<PointHistory[]> => {
+  try {
+    const response = await api.get("/points/point_history/");
+    console.log("User point history: ", response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching point history:", error);
+    return [];
+  }
+};
+
 export const startRelay = async (relayID: number, duration: number) => {
   const response = await api.post(`/mqtt/relay/${relayID}/start/`, {
     duration,
