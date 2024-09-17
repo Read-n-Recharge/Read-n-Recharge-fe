@@ -239,7 +239,7 @@ export const startRelay = async (relayID: number, duration: number) => {
 };
 
 export const stopRelay = async (relayID: number) => {
-  const response = await api.post("/mqtt/relay/${relayID}/stop");
+  const response = await api.post(`/mqtt/relay/${relayID}/stop/`);
   return response.data;
 };
 

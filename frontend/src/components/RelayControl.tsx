@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import {
   startRelay,
+  stopRelay,
   getRelayStatus,
   points_record,
   getTotalPoints,
@@ -93,6 +94,27 @@ const RelayControl: React.FC = () => {
       setShowModal(false);
     } catch (error) {
       console.error("Error activating relay:", error);
+    }
+  };
+
+  const handleStop = async (relayID: number) => {
+    try {
+      // Stop the relay via API
+      await stopRelay(relayID);
+
+      // Update the relay status to inactive
+      setRelayStatus((prevStatus) => ({
+        ...prevStatus,
+        [relayID]: { status: "inactive", duration: 0 },
+      }));
+
+      // Stop the countdown
+      setCountdowns((prevCountdowns) => ({
+        ...prevCountdowns,
+        [relayID]: null,
+      }));
+    } catch (error) {
+      console.error("Error stopping relay:", error);
     }
   };
 
@@ -200,17 +222,26 @@ const RelayControl: React.FC = () => {
               </p>
             )}
 
-            <button
-              onClick={() => handleActivate(numericRelayID)}
-              disabled={isActivated || Number(durations[numericRelayID]) < 15}
-              className={`mt-4 w-full py-2 px-4 rounded text-white ${
-                isActivated || Number(durations[numericRelayID]) < 15
-                  ? "bg-gray-400 cursor-not-allowed"
-                  : "bg-blue-500 hover:bg-blue-700"
-              }`}
-            >
-              {isActivated ? "Active" : "Activate Charging"}
-            </button>
+{isActivated ? (
+              <button
+                onClick={() => handleStop(numericRelayID)}
+                className="mt-4 w-full py-2 px-4 rounded text-white bg-red-500 hover:bg-red-700"
+              >
+                Stop Charging
+              </button>
+            ) : (
+              <button
+                onClick={() => handleActivate(numericRelayID)}
+                disabled={Number(durations[numericRelayID]) < 15}
+                className={`mt-4 w-full py-2 px-4 rounded text-white ${
+                  Number(durations[numericRelayID]) < 15
+                    ? "bg-gray-400 cursor-not-allowed"
+                    : "bg-blue-500 hover:bg-blue-700"
+                }`}
+              >
+                Activate Charging
+              </button>
+            )}
           </div>
         );
       })}
