@@ -23,6 +23,7 @@ const RelayControl: React.FC = () => {
   const [calculatedPoints, setCalculatedPoints] = useState<number | null>(null);
   const [showModal, setShowModal] = useState<boolean>(false);
   const [activeRelayID, setActiveRelayID] = useState<number | null>(null);
+  const [password, setpassword] = useState<string>("");
 
   useEffect(() => {
     const fetchRelayStatus = async () => {
@@ -77,7 +78,7 @@ const RelayControl: React.FC = () => {
 
     try {
       // Start the relay
-      await startRelay(relayID, duration);
+      await startRelay(relayID, duration, password);
       setRelayStatus((prevStatus) => ({
         ...prevStatus,
         [relayID]: { status: "active", duration: duration * 60 },
@@ -249,7 +250,31 @@ const RelayControl: React.FC = () => {
       {showModal && (
         <Modal
           title="Confirm Activation"
-          content={`You will use ${calculatedPoints} points to charging battery. Do you confirm?`}
+          content={(
+            <>
+              <p>You will use {calculatedPoints} points to charge the battery. Do you confirm?</p>
+              <br/>
+              <p>Plese create Password for charging lock:</p>
+              <input
+                type="number"
+                placeholder="Enter 6-digit password"
+                value={password}
+                maxLength={6}  // Ensure only 6 digits can be entered
+                onChange={(e) => {
+                  const value = e.target.value;
+                  if (value.length <= 6) {
+                    setpassword(value); 
+                  }
+                }}
+                onKeyDown={(e) => {
+                  if (e.key === 'e' || e.key === 'E' || e.key === '+' || e.key === '-') {
+                    e.preventDefault();  
+                  }
+                }}
+                className="border rounded p-2 mt-2 w-full"
+              />
+            </>
+          )}
           onConfirm={confirmActivation}
           onCancel={() => setShowModal(false)}
         />
