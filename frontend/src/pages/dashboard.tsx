@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getPointsHistory, RetrieveMoodRecords } from "../services/api";
 import { MoodCategory, MoodRecord, PointHistory } from "../type";
 import { Navbar } from "../components/common/navbar";
+import { addDays, subMonths, subWeeks } from "date-fns";
 
 const moodCategoryMapping: Record<string, { category: string; color: string }> =
   {
@@ -22,7 +23,6 @@ const calculateMoodFrequencyByCategory = (
 ): MoodCategory[] => {
   const categoryCount: Record<string, { count: number; color: string }> = {};
 
-  // Iterate through records and aggregate them by their broader category
   records.forEach((record) => {
     const mood = record.mood;
     const mappedMood = moodCategoryMapping[mood];
@@ -46,9 +46,27 @@ const calculateMoodFrequencyByCategory = (
   }));
 };
 
+const parseTimestamp = (timestamp: string): Date => {
+  const cleanTimestamp = timestamp
+    .replace(/(st|nd|rd|th)/, "") // Remove ordinal suffixes (like "3rd", "1st")
+    .replace(",", ""); // Remove the comma
+  const parsedDate = new Date(cleanTimestamp);
+  return parsedDate;
+};
+
+const filterRecordsByDateRange = (records: MoodRecord[], days: number) => {
+  const currentDate = new Date();
+  const startDate = addDays(currentDate, -days); // Calculate the start date
+  return records.filter((record) => {
+    const recordDate = parseTimestamp(record.timestamp); // Use the new parsing function
+    return recordDate >= startDate && recordDate <= currentDate;
+  });
+};
+
 export function DashboardPage() {
   const [moodRecords, setMoodRecords] = useState<MoodRecord[]>([]);
   const [points, setPoints] = useState<PointHistory[] | undefined>();
+  const [filter, setFilter] = useState<"week" | "month" | "all">("week");
 
   useEffect(() => {
     const fetchMoodRecords = async () => {
@@ -78,7 +96,14 @@ export function DashboardPage() {
     fetchPoints();
   }, []);
 
-  const moodData = calculateMoodFrequencyByCategory(moodRecords);
+  const filteredRecords =
+    filter === "week"
+      ? filterRecordsByDateRange(moodRecords, 7) // Last week
+      : filter === "month"
+      ? filterRecordsByDateRange(moodRecords, 30) // Last month
+      : moodRecords;
+
+  const moodData = calculateMoodFrequencyByCategory(filteredRecords);
   console.log("Mood Data:", moodData);
 
   return (
@@ -90,15 +115,42 @@ export function DashboardPage() {
             <h1 className="font-semibold text-2xl text-gray-700 mb-4 text-center">
               Mood Record
             </h1>
+            <div className="flex justify-center mb-4">
+              <button
+                className={`p-2 rounded-lg mr-2 ${
+                  filter === "week" ? "bg-blue-500 text-white" : "bg-gray-200"
+                }`}
+                onClick={() => setFilter("week")}
+              >
+                Last Week
+              </button>
+              <button
+                className={`p-2 rounded-lg ${
+                  filter === "month" ? "bg-blue-500 text-white" : "bg-gray-200"
+                }`}
+                onClick={() => setFilter("month")}
+              >
+                Last Month
+              </button>
+              <button
+                className={`p-2 rounded-lg ml-2 ${
+                  filter === "all" ? "bg-blue-500 text-white" : "bg-gray-200"
+                }`}
+                onClick={() => setFilter("all")}
+              >
+                All Data
+              </button>
+            </div>
+
             <div className="flex flex-wrap justify-start">
               {moodData.map((entry, index) => (
                 <div key={index} className="m-2">
                   <div
                     className="flex items-center justify-center rounded-full text-white relative text-center p-2 shadow-lg"
                     style={{
-                      width: `${entry.percentage * 5}px`,
-                      height: `${entry.percentage * 5}px`,
-                      fontSize: `${entry.percentage / 1.5}px`,
+                      width: `${entry.percentage * 4}px`,
+                      height: `${entry.percentage * 4}px`,
+                      fontSize: `${entry.percentage / 2}px`,
                       backgroundColor: entry.color,
                     }}
                   >
