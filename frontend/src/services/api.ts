@@ -8,6 +8,7 @@ import {
   Todo,
   Point,
   PointHistory,
+  SessionData,
 } from "../type";
 import { jwtDecode } from "jwt-decode";
 
@@ -247,3 +248,18 @@ export const getRelayStatus = async () => {
   const response = await api.get(`/mqtt/relay/status/`);
   return response.data;
 };
+
+export const saveCompletedStudySession = async (sessionData:SessionData) => {
+  try {
+    const response = await api.post(`/task/session/create`, sessionData);
+    console.log('Study session saved:', response.data);
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response) {
+      console.error("Error saving study session:", error.response.data);
+      throw error.response.data;
+    }
+    throw error;
+  }
+};
+

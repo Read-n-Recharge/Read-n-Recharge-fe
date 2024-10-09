@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { RetrieveStudyPreference } from "../../services/api";
 import { suggestStudyMethod } from "../utils/StudyMethod";
@@ -6,6 +6,9 @@ import SuggestionForm from "../forms/suggestionForm";
 import { useNavigate } from "react-router-dom";
 
 const RealTimeDataForm = ({ onClose, task }) => {
+  useEffect(() => {
+    console.log("Task passed to RealTimeDataForm:", task); // This will log the task object
+  }, [task]);
   const [stressLevel, setStressLevel] = useState("");
   const [noiseLevel, setNoiseLevel] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -65,8 +68,18 @@ const RealTimeDataForm = ({ onClose, task }) => {
   };
 
   const handleConfirmSuggestion = (selectedMethod, customTime) => {
+    console.log('Task ID in RealTimeDataForm:', task); 
     setShowSuggestionForm(false);
-    navigate("/clock", { state: { method: selectedMethod, customTime } });
+    navigate("/clock", {
+      state: {
+        method: selectedMethod,
+        customTime,
+        task: task, 
+        stressLevel: stressLevel,
+        noiseLevel:noiseLevel,
+      }
+      
+    });
   };
 
   return (

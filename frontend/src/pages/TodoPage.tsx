@@ -14,7 +14,6 @@ const TasksList: React.FC = () => {
   const [visibleTaskId, setVisibleTaskId] = useState<number | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
 
-  const navigate = useNavigate();
 
   const fetchTask = async () => {
     try {

@@ -89,3 +89,12 @@ export interface MoodCategory {
   percentage: number;
   color: string;
 }
+
+export interface SessionData{
+  task:number
+  stress_level: string;
+  noise_level: string;
+  studyMethod: string;
+  environment:string;
+  session_date:string;
+}

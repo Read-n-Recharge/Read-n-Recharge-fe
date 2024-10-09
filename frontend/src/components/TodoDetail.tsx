@@ -239,7 +239,7 @@ const TaskDetails: React.FC<TaskDetailProps> = ({ task, onUpdate }) => {
         <RealTimeDataForm
           onSubmit={handleRealTimeSubmit}
           onClose={() => setShowRealTimeForm(false)}
-          task={task}
+          task={task.id}
         />
       )}
     </motion.div>
