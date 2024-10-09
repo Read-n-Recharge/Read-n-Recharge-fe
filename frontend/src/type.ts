@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 export interface AuthCredentials {
   email: string;
   password: string;
@@ -72,7 +74,7 @@ export interface RelayControlProps {
 
 export interface ModalProps {
   title: string;
-  content: string;
+  content: ReactNode;
   onConfirm: () => void;
   onCancel: () => void;
 }

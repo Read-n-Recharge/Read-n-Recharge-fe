@@ -232,9 +232,10 @@ export const getPointsHistory = async (): Promise<PointHistory[]> => {
   }
 };
 
-export const startRelay = async (relayID: number, duration: number) => {
+export const startRelay = async (relayID: number, duration: number, password:string) => {
   const response = await api.post(`/mqtt/relay/${relayID}/start/`, {
     duration,
+    password
   });
   return response.data;
 };
