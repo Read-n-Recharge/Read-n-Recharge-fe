@@ -264,3 +264,11 @@ export const saveCompletedStudySession = async (sessionData:SessionData) => {
   }
 };
 
+export const getStudyActivity = async()=>{
+  try{
+    const response = api.get(`/task/session`)
+  }catch(error){
+    throw error.response.data;
+  }
+}
+

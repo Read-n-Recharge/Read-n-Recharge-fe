@@ -62,6 +62,7 @@ export interface Point {
 }
 
 export interface PointHistory {
+  timestamp: string | number | Date;
   points: number;
   action: string;
 }
