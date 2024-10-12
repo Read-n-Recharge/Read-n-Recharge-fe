@@ -1,5 +1,10 @@
 import React from "react";
+import { Doughnut } from "react-chartjs-2";
 import { PointHistory as PointHistoryType } from "../type";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+
+// Register Chart.js components
+ChartJS.register(ArcElement, Tooltip, Legend);
 
 // Helper function to calculate total added and used points
 const calculateTotalPoints = (points: PointHistoryType[]) => {
@@ -15,11 +20,6 @@ const calculateTotalPoints = (points: PointHistoryType[]) => {
   });
 
   return { totalAdded, totalUsed };
-};
-
-// Function to calculate percentage
-const calculatePercentage = (part: number, total: number) => {
-  return (part / total) * 100;
 };
 
 // Helper function to group points by date
@@ -41,47 +41,43 @@ const PointHistory = ({ points }: { points: PointHistoryType[] | undefined }) =>
 
   // Calculate total added and used points
   const { totalAdded, totalUsed } = calculateTotalPoints(points);
-  const totalPoints = totalAdded + totalUsed;
+  const totalPoints = totalAdded - totalUsed;
 
-  // Calculate percentages for donut chart
-  const percentageAdded = calculatePercentage(totalAdded, totalPoints);
-  const percentageUsed = calculatePercentage(totalUsed, totalPoints);
+  // Prepare data for the donut chart
+  const donutChartData = {
+    labels: ["Points Added", "Points Used"],
+    datasets: [
+      {
+        data: [totalAdded, totalUsed],
+        backgroundColor: ["#60a5fa", "#2dd4bf"],
+        hoverBackgroundColor: ["#3b82f6", "#14b8a6"],
+      },
+    ],
+  };
+
+  // Chart options with a fixed legend position
+  const donutChartOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        position: "bottom",  // Fix the position value to one of the valid options
+      },
+    },
+  };
 
   // Group points by date
   const groupedPoints = groupPointsByDate(points);
 
   return (
-    <div className="w-full h-full bg-opacity-35 p-8 rounded-xl">
-    <h2 className="font-semibold text-2xl text-gray-700 mb-5 text-center">Point History by Date</h2>
+    <div className="w-full h-full bg-opacity-35 pb-8 rounded-xl">
+      <h2 className="font-semibold text-2xl text-gray-700 mb-5 text-center">Point History by Date</h2>
       <div className="h-full flex">
         {/* Left side: Donut chart */}
-        <div className="flex justify-center items-center flex-col flex-none w-1/2">
-          {/* Donut chart container */}
-          <div
-            className="relative w-96 h-96 rounded-full"
-            style={{
-              background: `conic-gradient(#60a5fa ${percentageAdded}%, #2dd4bf ${percentageAdded}% ${percentageAdded + percentageUsed}%)`,
-            }}
-          >
-            {/* Inner circle to create donut effect */}
-            <div className="absolute inset-0 flex justify-center items-center">
-              <div className="w-56 h-56 bg-pink-50 rounded-full flex flex-col justify-center items-center">
-                {/* Display point totals inside the donut hole */}
-                <p>Total Points</p>
-                <p>{totalPoints}</p>
-              </div>
-            </div>
-          </div>
-          {/* Legend */}
-          <div className="flex justify-center mt-6">
-            <div className="flex items-center mr-4">
-              <span className="w-4 h-4 mr-2 rounded-full bg-blue-400"></span>
-              <span>Points Added: {totalAdded}</span>
-            </div>
-            <div className="flex items-center">
-              <span className="w-4 h-4 mr-2 rounded-full bg-teal-400"></span>
-              <span>Points Used: {totalUsed}</span>
-            </div>
+        <div className="flex justify-center items-center">
+          {/* Donut chart */}
+          <div className="relative w-96 h-96">
+            <Doughnut data={donutChartData} options={donutChartOptions} />
           </div>
         </div>
 

@@ -12,7 +12,6 @@ export function Clock() {
   const [modalMessage, setModalMessage] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const sessionDate = new Date().toISOString();
-  const environment = "quiet";
   const location = useLocation();
 
   const { method, customTime, task, stressLevel, noiseLevel } = location.state;
@@ -62,7 +61,6 @@ export function Clock() {
       studyMethod: method,
       stress_level: stressLevel,
       noise_level: noiseLevel,
-      environment: environment,
       session_date: sessionDate,
     };
 

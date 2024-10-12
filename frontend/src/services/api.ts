@@ -264,11 +264,24 @@ export const saveCompletedStudySession = async (sessionData:SessionData) => {
   }
 };
 
-export const getStudyActivity = async()=>{
-  try{
-    const response = api.get(`/task/session`)
-  }catch(error){
-    throw error.response.data;
+export const getStudyActivity = async () => {
+  try {
+    const response = await api.get(`/task/session`);
+    return response; 
+  } catch (error) {
+    throw error.response?.data || error.message;
   }
-}
+};
+
+export const getCOsaving = async () => {
+  try {
+    const response = await api.get(`/mqtt/relay-usage/`);
+    return response; 
+  } catch (error) {
+    throw error.response?.data || error.message;
+  }
+};
+
+
+
 

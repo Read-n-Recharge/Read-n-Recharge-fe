@@ -98,6 +98,5 @@ export interface SessionData{
   stress_level: string;
   noise_level: string;
   studyMethod: string;
-  environment:string;
   session_date:string;
 }

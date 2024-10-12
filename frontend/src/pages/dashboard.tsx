@@ -74,7 +74,7 @@ export function DashboardPage() {
         <button
           key={category}
           className={`text-gray-700 text-sm ${
-            selectedCategory === category ? "" : ""
+            selectedCategory === category ? "text-white" : ""
           }`}
           onClick={() => setSelectedCategory(category as any)}
         >
@@ -82,7 +82,7 @@ export function DashboardPage() {
             src={categoryImages[category]}
             alt={`${category} icon`}
             className={`w-24 h-24 rounded-xl object-cover p-2 ${
-              selectedCategory === category ? "" : "bg-white"
+              selectedCategory === category ? "bg-white" : ""
             }`}
           />
           <div className="text-center mt-2">
